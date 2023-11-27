@@ -18,7 +18,7 @@ module ApplicationHelper
         description: 'WanderWise is a web application that helps you organize your trips.',
         type: 'website',
         url: request.original_url,
-        image: image_url('/home/mangustan/code/MaicolCampochiaro/WanderWise/app/assets/images/aaaaa.jpg')
+        image: image_url('/home/mangustan/code/MaicolCampochiaro/WanderWise/app/assets/images/image.jpg')
       }
     }
   end
