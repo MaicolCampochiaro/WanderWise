@@ -1,24 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>WanderWise - Your ultimate journey organizer!</title>
-    <meta name="description" content="WanderWise is a web application that helps you organize your trips.">
-    <!-- Facebook Open Graph data -->
-    <meta property="og:title" content="<%=  %>" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="<%= request.original_url %>" />
-    <meta property="og:image" content="<%=  %>" />
-    <meta property="og:description" content="<%=  %>" />
-    <meta property="og:site_name" content="<%=  %>" />
-    <!-- Twitter Card data -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:site" content="<%= DEFAULT_META["twitter_account"] %>">
-    <meta name="twitter:title" content="<%=  %>">
-    <meta name="twitter:description" content="<%=  %>">
-    <meta name="twitter:creator" content="<%= DEFAULT_META["twitter_account"] %>">
-    <meta name="twitter:image:src" content="<%=  %>">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="icon" type="image/png" sizes="32x32" href="/logo.png">
+    <%= display_meta_tags(default_meta_tags) %>
+
+    <%= favicon_link_tag %>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
