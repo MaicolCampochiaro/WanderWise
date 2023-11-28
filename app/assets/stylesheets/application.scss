@@ -10,3 +10,9 @@
 // Your CSS partials
 @import "components/index";
 @import "pages/index";
+
+.container {
+  max-width: 1100px; /* or any preferred maximum width */
+  margin: 0 auto;    /* center the container */
+  padding: 20px;     /* add padding for spacing inside the container */
+}
