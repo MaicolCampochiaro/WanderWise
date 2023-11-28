@@ -25,6 +25,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_27_115223) do
   end
 
   create_table "activity_statuses", force: :cascade do |t|
+    t.integer "participant"
     t.string "status"
     t.bigint "activity_id", null: false
     t.bigint "trip_id", null: false
@@ -35,6 +36,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_27_115223) do
   end
 
   create_table "flight_statuses", force: :cascade do |t|
+    t.integer "adult"
     t.string "status"
     t.bigint "flight_id", null: false
     t.bigint "trip_id", null: false
@@ -49,29 +51,15 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_27_115223) do
     t.string "end_location"
     t.date "start_date"
     t.date "end_date"
-    t.integer "passenger"
+    t.float "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "hotel_statuses", force: :cascade do |t|
-    t.string "status"
-    t.bigint "hotel_id", null: false
-    t.bigint "trip_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["hotel_id"], name: "index_hotel_statuses_on_hotel_id"
-    t.index ["trip_id"], name: "index_hotel_statuses_on_trip_id"
   end
 
   create_table "hotels", force: :cascade do |t|
     t.string "name"
     t.string "description"
     t.string "address"
-    t.date "start_date"
-    t.date "end_date"
-    t.integer "guest"
-    t.float "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -81,6 +69,21 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_27_115223) do
     t.string "address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "room_statuses", force: :cascade do |t|
+    t.string "room_name"
+    t.date "start_date"
+    t.date "end_date"
+    t.integer "guest"
+    t.float "price"
+    t.string "status"
+    t.bigint "hotel_id", null: false
+    t.bigint "trip_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["hotel_id"], name: "index_room_statuses_on_hotel_id"
+    t.index ["trip_id"], name: "index_room_statuses_on_trip_id"
   end
 
   create_table "trips", force: :cascade do |t|
@@ -109,8 +112,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_27_115223) do
   add_foreign_key "activity_statuses", "trips"
   add_foreign_key "flight_statuses", "flights"
   add_foreign_key "flight_statuses", "trips"
-  add_foreign_key "hotel_statuses", "hotels"
-  add_foreign_key "hotel_statuses", "trips"
+  add_foreign_key "room_statuses", "hotels"
+  add_foreign_key "room_statuses", "trips"
   add_foreign_key "trips", "locations", column: "locations_id"
   add_foreign_key "trips", "users", column: "users_id"
 end

@@ -5,7 +5,7 @@ class CreateFlights < ActiveRecord::Migration[7.1]
       t.string :end_location
       t.date :start_date
       t.date :end_date
-      t.integer :passenger
+      t.float :price
 
       t.timestamps
     end
