@@ -2,7 +2,11 @@ class TripsController < ApplicationController
   before_action :set_trip, only: [:show, :edit, :update, :destroy]
 
   def index
-    @trip = Trip.all
+    if params[:query].present?
+      @trips = Trip.where('name ILIKE ?', "%#{params[:query]}%")
+    else
+      @trips = Trip.all
+    end
   end
 
   def show

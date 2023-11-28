@@ -1,0 +1,18 @@
+<%= form_with url: locations_path,
+              method: :get,
+              html: {
+                class: "mb-4",
+                data: {
+                  autocomplete_target: "form"
+                }
+              } do |f| %>
+    <%= f.label :query, "Search the location of your dreams" %>
+    <%= f.text_field :query,
+                      class: "form-control",
+                      value: params[:query],
+                      data: {
+                      autocomplete_target: "input",
+                      action: "keyup->autocomplete#update"
+                      }
+                      %>
+<% end %>
