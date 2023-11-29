@@ -1,3 +1,12 @@
+<div data-controller="autocomplete">
+  <div>
+    <%= render "shared/search_basic" %>
+  </div>
+
+  <div>
+    <%= render partial: "shared/homepage_location_cards", locals: { locations: @locations } %>
+  </div>
+</div>
 <div data-controller="map"
      id='map'
      data-map-markers-value="<%= @markers.to_json %>"
