@@ -53,6 +53,7 @@ gem "sassc-rails"
 gem 'meta-tags'
 gem 'faker'
 gem "geocoder"
+gem "cloudinary"
 
 group :development, :test do
   gem "dotenv-rails"

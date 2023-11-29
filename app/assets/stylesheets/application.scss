@@ -13,66 +13,10 @@
 
 body {
   font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-}
-
-h1 {
-  text-align: center;
-}
-.navbar {
-  background-color: #ccc8c8;
-  color: white;
-  padding: 10px;
-
-
-}
-
-.navbar ul {
-  display: flex auto;
-  width: 100%;
-  justify-content: space-between;
-  align-items: baseline;
-
-}
-
-
-.navbar li {
-  display: inline;
-  margin-right: 15px;
 }
 
 .container {
-  margin: 20px;
-}
-
-.footer {
-  background-color: #e2dddd;
-  color: white;
-  text-align: center;
-  padding: 10px;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-
-}
-
-.btn-ghost {
-  color: #4A4A4A;
-  border: 1px solid #4A4A4A;
-  padding: 8px 24px;
-  border-radius: 50px;
-  font-weight: lighter;
-  opacity: 0.6;
-  transition: opacity 0.3s ease;
-}
-
-.btn-ghost:hover {
-  opacity: 1;
-}
-.container {
-  max-width: 1100px; /* or any preferred maximum width */
-  margin: 0 auto;    /* center the container */
-  padding: 20px;     /* add padding for spacing inside the container */
-
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px;
 }
