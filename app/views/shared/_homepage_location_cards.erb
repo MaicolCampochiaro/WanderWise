@@ -1,0 +1,9 @@
+<div class="cards" data-autocomplete-target="list">
+  <% @locations.each do |location| %>
+    <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.ctfassets.net/hrltx12pl8hq/28ECAQiPJZ78hxatLTa7Ts/2f695d869736ae3b0de3e56ceaca3958/free-nature-images.jpg?fit=fill&w=1200&h=630')">
+      <h3>
+        <%= location.name %>
+      </h3>
+    </div>
+  <% end %>
+</div>
