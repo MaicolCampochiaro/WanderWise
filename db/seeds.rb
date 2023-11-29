@@ -6,4 +6,13 @@ puts 'Starting seed...'
   location.save!
 end
 
+5.times do
+  flight = Flight.new(start_location: Faker::Address.city,
+                      end_location: Faker::Address.city,
+                      start_date: Faker::Date.between(from: '2023-11-29', to: '2023-12-02'),
+                      end_date: Faker::Date.between(from: '2023-11-29', to: '2023-12-02'),
+                      price: Faker::Number.number(digits: 3))
+  flight.save!
+end
+
 puts 'Seed finished!'
