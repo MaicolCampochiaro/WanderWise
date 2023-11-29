@@ -1,0 +1,38 @@
+<%= form_with url: locations_path,
+              method: :get,
+              html: {
+                class: "mb-4",
+                data: {
+                  autocomplete_target: "form"
+                }
+              } do |f| %>
+  <div class="search-container w-50">
+    <div class="row row-cols-2">
+      <div class="col mb-2">
+        <%= f.text_field :from,
+                        class: "form-control search-text",
+                        placeholder: "From" %>
+      </div>
+      <div class="col">
+        <%= f.text_field :to,
+                        class: "form-control search-text",
+                        placeholder: "To" %>
+      </div>
+      <div class="col">
+        <%= f.date_field :start_date,
+                        class: "form-control search-text",
+                        placeholder: "Select your dates",
+                        data: {
+                          controller: "flatpickr",
+                          flatpickr_date_format: "Y-m-d",
+                          mode: "range",
+                          flatpickr_min_date: Time.zone.now
+                        } %>
+      </div>
+      <div class="col">
+        <%= f.submit "search", class: "form-control search-btn mx-auto" %>
+      </div>
+    </div>
+  </div>
+
+<% end %>
