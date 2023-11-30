@@ -1,4 +1,7 @@
 class LocationsController < ApplicationController
+  def homepage
+  end
+
   def index
     if params[:query].present?
       @locations = Location.where('name ILIKE ?', "%#{params[:query]}%")

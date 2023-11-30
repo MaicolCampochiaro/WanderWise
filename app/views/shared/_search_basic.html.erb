@@ -7,18 +7,18 @@
                 }
               } do |f| %>
 
-  <div class="input-icons w-50">
+  <div class="input-icons r13 w-50">
     <i class="fa-solid fa-magnifying-glass icon"></i>
     <div class="d-flex justify-content-between">
       <%= f.text_field :query,
-                        class: "form-control input-field",
+                        class: "form-control r13 input-field",
                         value: params[:query],
                         placeholder: "Search for a location",
                         data: {
-                        autocomplete_target: "input",
+                        autocomplete_target: "input r13",
                         action: "keyup->autocomplete#update"
                         } %>
-      <%= f.submit "Search", class:"input-btn" %>
+      <%= f.submit "Search", class:"input-btn r13" %>
     </div>
   </div>
 <% end %>

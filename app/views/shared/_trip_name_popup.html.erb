@@ -1,0 +1,17 @@
+<%= form_with url: trips_path,
+              method: :post,
+              html: {
+                class: ""
+              } do |f| %>
+  <div class="container">
+    <%= f.label "Pick a name for the trip" %>
+    <%= f.text_field :name,
+                    class: "form-control r13 mb-2",
+                    value: params[:name],
+                    placeholder: "Name of the trip"
+                    %>
+    <div class="row justify-content-end">
+      <%= f.submit "Start Tripping", class:"w-auto btn btn-primary r13 " %>
+    </div>
+  </div>
+<% end %>
