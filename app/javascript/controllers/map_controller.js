@@ -20,10 +20,8 @@ static values = {
   }
 
   #addMarkersToMap() {
-    console.log(this.markersValue)
     this.markersValue.forEach((marker) => {
 
-    console.log([marker.lat, marker.lng])
     const popup = new mapboxgl.Popup().setHTML(marker.info_window_html) // Add this
 
     // Create a HTML element for your custom marker
