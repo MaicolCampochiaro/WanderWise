@@ -1,3 +1,15 @@
-<div>
-  <%= render "shared/activity_cards" %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <%= render "shared/activity_cards" %>
+    </div>
+
+    <div class="col-md-6">
+      <div data-controller="map"
+        id='map'
+        data-map-markers-value="<%= @markers.to_json %>"
+        data-map-api-key-value="<%= ENV["MAPBOX_API_KEY"] %>"
+        style='height: 500px;'></div>
+    </div>
+  </div>
 </div>
