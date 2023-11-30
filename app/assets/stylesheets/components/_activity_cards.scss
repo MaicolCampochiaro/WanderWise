@@ -39,3 +39,14 @@
   top: 20px;
   right: 20px;
 }
+
+.activity-container {
+  margin: 16px;
+  overflow: auto;
+  height: 500px;
+  width: 50%;
+}
+
+.container-activities {
+  position: sticky;
+}
