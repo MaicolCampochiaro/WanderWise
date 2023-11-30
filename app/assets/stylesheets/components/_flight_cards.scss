@@ -1,4 +1,4 @@
-.card-product {
+.flight-product {
   overflow: hidden;
   height: 150px;
   background: white;
@@ -10,13 +10,13 @@
   margin: 16px auto;
 }
 
-.card-product h2 {
+.flight-product h2 {
   font-size: 16px;
   font-weight: bold;
   margin: 0;
 }
 
-.card-product p {
+.flight-product p {
   font-size: 12px;
   line-height: 1.4;
   opacity: 0.7;
@@ -24,13 +24,13 @@
   margin-top: 8px;
 }
 
-.card-product .card-product-infos {
+.flight-product .flight-product-infos {
   padding: 16px;
   display: flex;
   align-items: center;
 }
 
-.card-product .card-product-infos div {
+.flight-product .flight-product-infos div {
   display: flex;
   flex-direction: column;
   justify-content: center;

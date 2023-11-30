@@ -1,13 +1,13 @@
 <% Flight.all.each do |flight| %>
-<div class="card-product">
+<div class="flight-product">
   <div class="flight-info">
-    <div class="card-product-infos">
+    <div class="flight-product-infos">
       <div>
         <h2><%= flight.start_location %><i class="fa-solid fa-arrow-right"></i> <%= flight.end_location %></h2>
         <p><%= flight.start_date %></p>
       </div>
     </div>
-    <div class="card-product-infos">
+    <div class="flight-product-infos">
       <div>
         <h2><%= flight.end_location %><i class="fa-solid fa-arrow-right"></i> <%= flight.start_location %></h2>
         <p><%= flight.end_date %></p>
