@@ -1,6 +1,9 @@
 class TripsController < ApplicationController
   before_action :set_trip, only: [:show, :edit, :update, :destroy]
 
+  def homepage
+  end
+
   def index
     if params[:query].present?
       @trips = Trip.where('name ILIKE ?', "%#{params[:query]}%")
@@ -51,6 +54,6 @@ class TripsController < ApplicationController
   end
 
   def trip_params
-    params.require(:trip).permit(:name)
+    params.permit(:name)
   end
 end
