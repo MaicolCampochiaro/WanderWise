@@ -46,4 +46,36 @@ end
 
 puts 'flights seed finished'
 
+puts 'Starting seed for activities'
+
+  5.times do
+    activity = Activity.new(
+      name: Faker::Game.title,
+      description: Faker::Lorem.paragraph(sentence_count: 2, supplemental: false, random_sentences_to_add: 4),
+      address: Faker::Address.full_address,
+      date: Faker::Date.between(from: '2023-11-29', to: '2023-12-02'),
+      price: Faker::Number.number(digits: 3)
+    )
+    file = URI.open("https://picsum.photos/200/300?random=#{Faker::Number.number(digits: 4)}")
+    activity.photo.attach(io: file, filename: "nes.png", content_type: "image/png")
+    activity.save!
+  end
+
+  puts 'activities seed finished'
+
+  puts 'Starting seed for hotels'
+
+  5.times do
+    hotel = Hotel.new(
+      name: Faker::Company.name,
+      description: Faker::Lorem.paragraph(sentence_count: 2, supplemental: false, random_sentences_to_add: 4),
+      address: Faker::Address.full_address,
+    )
+    file = URI.open("https://picsum.photos/200/300?random=#{Faker::Number.number(digits: 4)}")
+    hotel.photo.attach(io: file, filename: "nes.png", content_type: "image/png")
+    hotel.save!
+  end
+
+  puts 'hotels seed finished'
+
 puts 'Seed finished!'

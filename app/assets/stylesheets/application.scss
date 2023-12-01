@@ -24,3 +24,12 @@ body {
 .r13 {
   border-radius: 13px;
 }
+
+.activity-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
