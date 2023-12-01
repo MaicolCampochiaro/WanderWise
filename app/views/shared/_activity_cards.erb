@@ -1,7 +1,7 @@
 <% Activity.all.each do |activity| %>
   <div class="activity-product">
     <button class="activity_select_button">Select</button>
-    <img src="<%= cl_image_path(activity.photo.key) %>" alt="<%= activity.name %>">
+    <img src="<%= cl_image_path(activity.photo.key, resize: '200x300') %>" alt="<%= activity.name %>">
     <div class="activity-product-infos">
       <h2><%= activity.name %></h2>
       <p><%= activity.description %></p>

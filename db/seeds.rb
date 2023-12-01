@@ -1,20 +1,13 @@
 require "cloudinary"
 require "open-uri"
 require 'json'
+client = OpenAI::Client.new
 
 Cloudinary.config do |config|
   config.cloud_name = ENV["CLOUDINARY_CLOUD_NAME"]
   config.api_key = ENV["CLOUDINARY_API_KEY"]
   config.api_secret = ENV["CLOUDINARY_API_SECRET"]
 end
-
-puts 'deleting old seeds...'
-
-# Delete existing data
-User.delete_all
-Location.delete_all
-
-puts 'end of deletion...'
 
 puts 'Starting seed for location...'
 
@@ -25,14 +18,21 @@ end
 
 10.times do
   Location.create(locs.sample)
-  # file = URI.open("https://picsum.photos/200/300?random=#{Faker::Number.number(digits: 4)}")
-  # location.photo.attach(io: file, filename: "nes.png", content_type: "image/png")
-  # location.save!
 end
+Location.all.each do |location|
+
+response = client.images.generate(parameters: {
+  prompt: "A location image of #{location.name}", size: "256x256"
+})
+
+url = response["data"][0]["url"]
+file =  URI.open(url)
+
+location.photo.purge if location.photo.attached?
+location.photo.attach(io: file, filename: "ai_generated_image.jpg", content_type: "image/png")
 
 puts 'locations seed finished'
-client = OpenAI::Client.new
-Location.all.each do |location|
+
 response = client.chat(parameters: {
   model: "gpt-3.5-turbo",
   messages: [{
@@ -46,11 +46,11 @@ new_content = response["choices"][0]["message"]["content"]
 activities = JSON.parse(new_content)
 activities.each do |activity|
   Activity.create(name: activity["name"], description: activity["description"], address: activity["address"], date: activity["date"], price: activity["price"], location: location)
+  activity.update(content: new_content)
 end
 
-
 response = client.images.generate(parameters: {
-  prompt: "An activity image of #{activity.name}", size: "382x180"
+  prompt: "An activity image of #{activity.name}", size: "256x256"
 })
 
 url = response["data"][0]["url"]
@@ -87,4 +87,5 @@ end
 
   puts 'hotels seed finished'
 
-puts 'Seed finished!'
+  puts 'Seed finished!'
+end
