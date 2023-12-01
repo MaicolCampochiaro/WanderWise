@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_01_101113) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_01_101009) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -55,8 +55,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_01_101113) do
   create_table "activity_statuses", force: :cascade do |t|
     t.integer "participant"
     t.string "status"
-    t.bigint "activity_id", null: false
-    t.bigint "trip_id", null: false
+    t.bigint "activity_id"
+    t.bigint "trip_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["activity_id"], name: "index_activity_statuses_on_activity_id"
@@ -66,8 +66,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_01_101113) do
   create_table "flight_statuses", force: :cascade do |t|
     t.integer "adult"
     t.string "status"
-    t.bigint "flight_id", null: false
-    t.bigint "trip_id", null: false
+    t.bigint "flight_id"
+    t.bigint "trip_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["flight_id"], name: "index_flight_statuses_on_flight_id"
@@ -108,8 +108,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_01_101113) do
     t.integer "guest"
     t.float "price"
     t.string "status"
-    t.bigint "hotel_id", null: false
-    t.bigint "trip_id", null: false
+    t.bigint "hotel_id"
+    t.bigint "trip_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["hotel_id"], name: "index_room_statuses_on_hotel_id"
@@ -118,12 +118,12 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_01_101113) do
 
   create_table "trips", force: :cascade do |t|
     t.string "name"
-    t.bigint "users_id"
-    t.bigint "locations_id"
+    t.bigint "user_id"
+    t.bigint "location_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["locations_id"], name: "index_trips_on_locations_id"
-    t.index ["users_id"], name: "index_trips_on_users_id"
+    t.index ["location_id"], name: "index_trips_on_location_id"
+    t.index ["user_id"], name: "index_trips_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -146,6 +146,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_01_101113) do
   add_foreign_key "flight_statuses", "trips"
   add_foreign_key "room_statuses", "hotels"
   add_foreign_key "room_statuses", "trips"
-  add_foreign_key "trips", "locations", column: "locations_id"
-  add_foreign_key "trips", "users", column: "users_id"
+  add_foreign_key "trips", "locations"
+  add_foreign_key "trips", "users"
 end
