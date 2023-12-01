@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_29_095203) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_01_101113) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -46,7 +46,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_29_095203) do
     t.string "name"
     t.string "description"
     t.string "address"
-    t.date "date"
+    t.datetime "date"
     t.float "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -77,7 +77,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_29_095203) do
   create_table "flights", force: :cascade do |t|
     t.string "start_location"
     t.string "end_location"
-    t.date "start_date"
+    t.datetime "start_date"
     t.date "end_date"
     t.float "price"
     t.datetime "created_at", null: false
@@ -118,8 +118,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_29_095203) do
 
   create_table "trips", force: :cascade do |t|
     t.string "name"
-    t.bigint "users_id", null: false
-    t.bigint "locations_id", null: false
+    t.bigint "users_id"
+    t.bigint "locations_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["locations_id"], name: "index_trips_on_locations_id"

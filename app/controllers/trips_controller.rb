@@ -1,6 +1,9 @@
 class TripsController < ApplicationController
   before_action :set_trip, only: [:show, :edit, :update, :destroy]
 
+  def homepage
+  end
+
   def index
     if params[:query].present?
       @trips = Trip.where('name ILIKE ?', "%#{params[:query]}%")
@@ -18,12 +21,12 @@ class TripsController < ApplicationController
 
   def create
     @trip = Trip.new(trip_params)
-    @trip.user = current_user
-    @trip.location = Location.find(params[:location]) if params[:location].present?
+    @trip.user = current_user if current_user.present?
 
     if @trip.save!
-      redirect_to @trip, notice: 'Trip was successfully created.'
+      redirect_to locations_path(@trip), notice: 'Trip was successfully created.'
     else
+      # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! think when u failed to create a trip, what should u do?
       render :new
     end
   end
@@ -51,6 +54,6 @@ class TripsController < ApplicationController
   end
 
   def trip_params
-    params.require(:trip).permit(:name)
+    params.permit(:name)
   end
 end
