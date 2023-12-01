@@ -69,7 +69,7 @@ puts 'Starting seed for activities'
     hotel = Hotel.new(
       name: Faker::Company.name,
       description: Faker::Lorem.paragraph(sentence_count: 2, supplemental: false, random_sentences_to_add: 4),
-      address: Faker::Address.full_address,
+      address: Faker::Address.full_address
     )
     file = URI.open("https://picsum.photos/200/300?random=#{Faker::Number.number(digits: 4)}")
     hotel.photo.attach(io: file, filename: "nes.png", content_type: "image/png")
