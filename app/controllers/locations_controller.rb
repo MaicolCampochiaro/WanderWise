@@ -1,5 +1,6 @@
 class LocationsController < ApplicationController
   def index
+    @trip_id = params[:id]
     if params[:query].present?
       @locations = Location.where('name ILIKE ?', "%#{params[:query]}%")
     else

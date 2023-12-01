@@ -44,7 +44,7 @@ class TripsController < ApplicationController
 
   def destroy
     @trip.destroy
-    redirect_to root_path, notice: 'Trip was successfully deleted.'
+    redirect_to homepage_path, notice: 'Trip was successfully deleted.'
   end
 
   private
