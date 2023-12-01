@@ -54,6 +54,7 @@ gem 'meta-tags'
 gem 'faker'
 gem "geocoder"
 gem "cloudinary"
+gem "ruby-openai"
 
 group :development, :test do
   gem "dotenv-rails"
