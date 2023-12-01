@@ -24,14 +24,40 @@ File.open('db/locations.json') do |file|
 end
 
 10.times do
-  location = Location.new(locs.sample)
-
-  file = URI.open("https://picsum.photos/200/300?random=#{Faker::Number.number(digits: 4)}")
-  location.photo.attach(io: file, filename: "nes.png", content_type: "image/png")
-  location.save!
+  Location.create(locs.sample)
+  # file = URI.open("https://picsum.photos/200/300?random=#{Faker::Number.number(digits: 4)}")
+  # location.photo.attach(io: file, filename: "nes.png", content_type: "image/png")
+  # location.save!
 end
 
 puts 'locations seed finished'
+client = OpenAI::Client.new
+Location.all.each do |location|
+response = client.chat(parameters: {
+  model: "gpt-3.5-turbo",
+  messages: [{
+    role: "user",
+    content: "give me 5 activities to do in #{location.name}
+    your response should be an array of objects. each objects should have the following structure:
+    {name:string, description:string, address:string, date:datetime, price:float} 'Here are activities to do'."}]
+})
+
+new_content = response["choices"][0]["message"]["content"]
+activities = JSON.parse(new_content)
+activities.each do |activity|
+  Activity.create(name: activity["name"], description: activity["description"], address: activity["address"], date: activity["date"], price: activity["price"], location: location)
+end
+
+
+response = client.images.generate(parameters: {
+  prompt: "An activity image of #{activity.name}", size: "382x180"
+})
+
+url = response["data"][0]["url"]
+file =  URI.open(url)
+
+photo.purge if photo.attached?
+photo.attach(io: file, filename: "ai_generated_image.jpg", content_type: "image/png")
 
 puts 'Starting seed for flights'
 
@@ -44,24 +70,7 @@ puts 'Starting seed for flights'
   flight.save!
 end
 
-puts 'flights seed finished'
-
-puts 'Starting seed for activities'
-
-  5.times do
-    activity = Activity.new(
-      name: Faker::Game.title,
-      description: Faker::Lorem.paragraph(sentence_count: 2, supplemental: false, random_sentences_to_add: 4),
-      address: Faker::Address.full_address,
-      date: Faker::Date.between(from: '2023-11-29', to: '2023-12-02'),
-      price: Faker::Number.number(digits: 3)
-    )
-    file = URI.open("https://picsum.photos/200/300?random=#{Faker::Number.number(digits: 4)}")
-    activity.photo.attach(io: file, filename: "nes.png", content_type: "image/png")
-    activity.save!
-  end
-
-  puts 'activities seed finished'
+  puts 'flights seed finished'
 
   puts 'Starting seed for hotels'
 
