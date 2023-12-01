@@ -7,8 +7,8 @@ class CreateRoomStatuses < ActiveRecord::Migration[7.1]
       t.integer :guest
       t.float :price
       t.string :status
-      t.references :hotel, null: false, foreign_key: true
-      t.references :trip, null: false, foreign_key: true
+      t.references :hotel, null: true, foreign_key: true
+      t.references :trip, null: true, foreign_key: true
 
       t.timestamps
     end
