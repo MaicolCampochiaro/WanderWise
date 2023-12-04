@@ -37,7 +37,7 @@ locs = JSON.parse(locations_prompt)
 
   # Attach an image to the location
   response = client.images.generate(parameters: {
-    prompt: "A location image of #{location.name}",
+    prompt: "An image of this location: #{location.name} that shows the city's landmarks.",
     size: "256x256"
   })
 
@@ -115,12 +115,10 @@ locs = JSON.parse(locations_prompt)
   new_content = response["choices"][0]["message"]["content"]
   hotels_data = JSON.parse(new_content)
 
-  hotels_data.each_with_index do |hotel_data, index|
-    # Assign unique names instead of generic 'Hotel A', 'Hotel B'
-    hotel_name = "Hotel #{index + 1}"
+  hotels_data.each do |hotel_data|
 
     hotel = Hotel.create!(
-      name: hotel_name,
+      name: hotel_data["name"],
       description: hotel_data["description"],
       address: hotel_data["address"],
       location: location
@@ -139,6 +137,54 @@ locs = JSON.parse(locations_prompt)
     hotel.photo.attach(io: file, filename: "ai_generated_image.jpg", content_type: "image/png")
     hotel.save!
   end
+
+  puts "hotels seed finished!"
+
+  puts "Starting seed for rooms in #{hotel.name}..."
+
+  # Seed for rooms
+  response = client.chat(parameters: {
+    model: "gpt-3.5-turbo",
+    messages: [{
+      role: "user",
+      content: "give me 2 real room names to stay at in '#{hotel.name}' with unique names like 'suite, single or double'.
+      Your response should be an array of objects.
+      Each object should have the following structure:
+      {\"name\": \"string\",
+        \"description\": \"string\",
+        \"price\": \"float\"}.
+        Your answer should not include text like 'Here are rooms to stay in.'"
+    }]
+  })
+
+  new_content = response["choices"][0]["message"]["content"]
+  rooms_data = JSON.parse(new_content)
+
+  rooms_data.each do |room_data|
+
+    room = Room.create!(
+      name: room_data["name"],
+      description: room_data["description"],
+      price: room_data["price"],
+      hotel: hotel
+    )
+
+    # Create the image for the room
+    response = client.images.generate(parameters: {
+      prompt: "An room image of #{room.name}",
+      size: "256x256"
+    })
+
+    url = response["data"][0]["url"]
+    file = URI.open(url)
+
+    room.photo.purge if room.photo.attached?
+    room.photo.attach(io: file, filename: "ai_generated_image.jpg", content_type: "image/png")
+    room.save!
+  end
+
+  puts "rooms seed finished!"
+
 end
 
 puts 'hotels seed finished!'
