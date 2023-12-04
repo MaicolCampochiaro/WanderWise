@@ -9,5 +9,5 @@ Rails.application.routes.draw do
   end
   get '/trips/:id/:query' => 'trips#show', as: 'overview'
   post '/trips' => 'trips#create', as: 'create'
-  post '/trips/:id/flights/'=> 'trips#flight_create', as: 'flight_create'
+  get '/trips/:trip_id/hotels/:hotel_id' => 'hotels#show', as: 'hotel_show'
 end

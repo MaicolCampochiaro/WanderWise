@@ -5,7 +5,7 @@
       <% if @trip.location.present?%>
         <%= render 'shared/location_card', location: @trip.location %>
       <% else %>
-        <%= link_to "Add Location", homepage_path, class: "btn btn-primary p28" %>
+        <%= link_to "Add Location", locations_path(@trip), class: "btn btn-primary p28" %>
       <% end %>
     </div>
   </div>
@@ -15,7 +15,7 @@
       <% if @trip.flights.present?%>
         <%= render 'shared/flight_cards' %>
       <% else %>
-        <%= link_to "Add flight", homepage_path, class: "btn btn-primary p28" %>
+        <%= link_to "Add flight", trip_flights_path(@trip_id), class: "btn btn-primary p28" %>
       <% end %>
     </div>
   </div>
@@ -25,7 +25,7 @@
       <% if @trip.hotels.present?%>
         <%= render 'shared/hotel_card', hotel: @trip.hotel %>
       <% else %>
-        <%= link_to "Add hotel", homepage_path, class: "btn btn-primary p28" %>
+        <%= link_to "Add hotel", trip_hotels_path(@trip_id), class: "btn btn-primary p28" %>
       <% end %>
     </div>
   </div>
@@ -35,7 +35,7 @@
       <% if @trip.activities.present?%>
         <%= render 'shared/activity_cards' %>
       <% else %>
-        <%= link_to "Add activitiy", homepage_path, class: "btn btn-primary p28" %>
+        <%= link_to "Add activitiy", trip_activities_path(@trip_id), class: "btn btn-primary p28" %>
       <% end %>
     </div>
   </div>

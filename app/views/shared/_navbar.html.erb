@@ -1,12 +1,18 @@
 <div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
   <div class="container-fluid">
     <li class="nav-item dropdown">
-            <%= link_to "Start Now", "#", class: "btn btn-ghost", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
-            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-              <%= link_to "Home", homepage_path, class: "dropdown-item" %>
-              <%= link_to "Trips", trips_path, class: "dropdown-item" %>
-            </div>
-          </li>
+      <%= link_to "#", class: "btn btn-ghost", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false do %>
+        <i class="fas fa-bars"></i>
+      <% end %>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <%= link_to "Start trip", locations_path('id'), class: "dropdown-item" %>
+          <%= link_to "Locations", locations_path('id'), class: "dropdown-item" %>
+          <%= link_to "Flights", trip_flights_path('id'), class: "dropdown-item" %>
+          <%= link_to "Hotels", trip_hotels_path('id'), class: "dropdown-item" %>
+          <%= link_to "Activities", trip_activities_path('id'), class: "dropdown-item" %>
+        </div>
+
+    </li>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -25,21 +31,20 @@
     </div>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto">
-        <%# if user_signed_in? %>
-
+        <% if user_signed_in? %>
           <li class="nav-item dropdown">
-            <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
+            <%= image_tag "https://icons.iconarchive.com/icons/papirus-team/papirus-status/512/avatar-default-icon.png", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-              <%= link_to "Action", "#", class: "dropdown-item" %>
-              <%= link_to "Another action", "#", class: "dropdown-item" %>
+              <%= link_to "My trips", trips_path, class: "dropdown-item" %>
+              <%= link_to "Edit account", "#", class: "dropdown-item" %>
               <%= link_to "Log out", "#", class: "dropdown-item", data: {turbo_method: :delete} %>
             </div>
           </li>
-        <%# else %>
-          <!--li class="nav-item"-->
-          <%#= link_to "Login", new_user_session_path, class: "nav-link" %>
-          <!--/li-->
-        <%# end %>
+        <% else %>
+          <li class="nav-item">
+          <%= link_to "Login", new_user_session_path, class: "nav-link" %>
+          </li>
+        <% end %>
       </ul>
     </div>
   </div>
