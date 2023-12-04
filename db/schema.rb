@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_01_101009) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_01_165802) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -50,6 +50,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_01_101009) do
     t.float "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "location_id"
+    t.index ["location_id"], name: "index_activities_on_location_id"
   end
 
   create_table "activity_statuses", force: :cascade do |t|
@@ -90,6 +92,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_01_101009) do
     t.string "address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "location_id"
+    t.index ["location_id"], name: "index_hotels_on_location_id"
   end
 
   create_table "locations", force: :cascade do |t|
@@ -140,10 +144,12 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_01_101009) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "activities", "locations"
   add_foreign_key "activity_statuses", "activities"
   add_foreign_key "activity_statuses", "trips"
   add_foreign_key "flight_statuses", "flights"
   add_foreign_key "flight_statuses", "trips"
+  add_foreign_key "hotels", "locations"
   add_foreign_key "room_statuses", "hotels"
   add_foreign_key "room_statuses", "trips"
   add_foreign_key "trips", "locations"
