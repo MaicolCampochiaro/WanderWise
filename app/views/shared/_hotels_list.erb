@@ -1,0 +1,7 @@
+<div data-autocomplete-target="list">
+  <% @hotels do |hotel| %>
+    <div class="hotel-product">
+      <%= render "hotel_card", locals: { hotel: hotel} %>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,7 @@
+ <div class="cards" data-autocomplete-target="list">
+  <% locations.each do |location| %>
+    <%= link_to overview_path(:query =>  { :location_id => location.id }), :action => 'go' do %>
+      <%= render partial: "shared/location_card", locals: { location: location } %>
+    <% end %>
+  <% end %>
+</div>

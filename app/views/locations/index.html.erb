@@ -3,10 +3,10 @@
     <%= render "shared/search_basic" %>
   </div>
 
-  <div>
-    <%= render partial: "shared/homepage_location_cards", locals: { locations: @locations } %>
-  </div>
+  <%= render "shared/locations_list", locations: @locations %>
+
 </div>
+<br>
 <div data-controller="map"
      id='map'
      data-map-markers-value="<%= @markers.to_json %>"
