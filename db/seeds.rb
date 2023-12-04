@@ -11,81 +11,137 @@ end
 
 puts 'Starting seed for location...'
 
-locs = []
-File.open('db/locations.json') do |file|
-  locs = JSON.parse(file.read)
-end
+response = client.chat(parameters: {
+  model: "gpt-3.5-turbo",
+  messages: [
+    { role: "system", content: "You are a helpful assistant that provides information about travel destinations." },
+    { role: "user", content: 'Give me a list of the top 20 cities to visit in the world.
+      Your response should be an array of objects.
+      Each object should have the following structure:
+      {"name": "string",
+        "address": "string",
+        "latitude": "float",
+        "longitude": "float"}.
+        Your answer should not include text like "Here are the top 20 locations."' }
+  ]
+})
 
-10.times do
-  Location.create!(locs.sample)
-end
-Location.all.each do |location|
+# Extract the content from the GPT-3.5 response
+locations_prompt = response["choices"][0]["message"]["content"]
+
+# Use the generated prompt for further processing
+locs = JSON.parse(locations_prompt)
+
+2.times do
+  location = Location.create!(locs.sample)
+
+  # Attach an image to the location
   response = client.images.generate(parameters: {
     prompt: "A location image of #{location.name}",
     size: "256x256"
   })
 
   url = response["data"][0]["url"]
-  file =  URI.open(url)
+  file = URI.open(url)
 
   location.photo.purge if location.photo.attached?
   location.photo.attach(io: file, filename: "ai_generated_image.jpg", content_type: "image/png")
   location.save!
 
-  # starting seed for activities
+  puts "Starting seed for activities in #{location.name}..."
+
+  # Seed for activities
   response = client.chat(parameters: {
     model: "gpt-3.5-turbo",
     messages: [{
       role: "user",
-      content: "give me 5 activities to do in #{location.name}
-      your response should be an array of objects. each objects should have the following structure:
-      {name:string, description:string, address:string, date:datetime, price:float} 'Here are activities to do'."}]
+      content: "give me 2 activities to do in '#{location.name}'.
+      Your response should be an array of objects.
+      Each object should have the following structure:
+      {\"name\": \"string\",
+        \"description\": \"string\",
+        \"address\": \"string\",
+        \"price\": \"float\"}.
+        Your answer should not include text like 'Here are activities to do.'"
+    }]
   })
 
   new_content = response["choices"][0]["message"]["content"]
   activities = JSON.parse(new_content)
-  activities.each do |activity|
-    Activity.create!(name: activity["name"], description: activity["description"], address: activity["address"], date: activity["date"], price: activity["price"], location: location)
 
-    # create the image for the activity
+  activities.each do |activity_data|
+
+    activity = Activity.create!(
+      name: activity_data["name"],
+      description: activity_data["description"],
+      address: activity_data["address"],
+      price: activity_data["price"],
+      location: location
+    )
+
+    # Create the image for the activity
     response = client.images.generate(parameters: {
       prompt: "An activity image of #{activity.name}",
       size: "256x256"
     })
+
     url = response["data"][0]["url"]
-    file =  URI.open(url)
-    activity.photo.purge if photo.attached?
+    file = URI.open(url)
+
+    activity.photo.purge if activity.photo.attached?
     activity.photo.attach(io: file, filename: "ai_generated_image.jpg", content_type: "image/png")
     activity.save!
   end
 
-  # end of activity for location
+  puts "activities seed finished!"
 
+  puts "Starting seed for hotels in #{location.name}..."
+
+  # Seed for hotels
   response = client.chat(parameters: {
     model: "gpt-3.5-turbo",
     messages: [{
       role: "user",
-    content: "CHANGE THIS TO CREATE HOTELS IN #{location.name}"}]
+      content: "give me 2 real hotel  names to stay at in '#{location.name}' with unique names.
+      Your response should be an array of objects.
+      Each object should have the following structure:
+      {\"name\": \"string\",
+        \"description\": \"string\",
+        \"address\": \"string\"}.
+        Your answer should not include text like 'Here are hotels to stay in.'"
+    }]
   })
 
-  # CHECK THIS RESPONS!!!!!!
   new_content = response["choices"][0]["message"]["content"]
-  hotels = JSON.parse(new_content)
-  hotels.each do |hotel|
-    Hotel.create!(name: hotel["name"], description: hotel["description"], address: hotel["address"], date: hotel["date"], price: activity["price"], location: location)
+  hotels_data = JSON.parse(new_content)
 
-    # create the image for the activity
+  hotels_data.each_with_index do |hotel_data, index|
+    # Assign unique names instead of generic 'Hotel A', 'Hotel B'
+    hotel_name = "Hotel #{index + 1}"
+
+    hotel = Hotel.create!(
+      name: hotel_name,
+      description: hotel_data["description"],
+      address: hotel_data["address"],
+      location: location
+    )
+
+    # Create the image for the hotel
     response = client.images.generate(parameters: {
-      prompt: "An activity image of #{activity.name}",
+      prompt: "An hotel image of #{hotel.name}",
       size: "256x256"
     })
+
     url = response["data"][0]["url"]
-    file =  URI.open(url)
-    activity.photo.purge if photo.attached?
-    activity.photo.attach(io: file, filename: "ai_generated_image.jpg", content_type: "image/png")
-    activity.save!
+    file = URI.open(url)
+
+    hotel.photo.purge if hotel.photo.attached?
+    hotel.photo.attach(io: file, filename: "ai_generated_image.jpg", content_type: "image/png")
+    hotel.save!
   end
 end
+
+puts 'hotels seed finished!'
 
 puts 'Starting seed for flights'
 
@@ -100,20 +156,4 @@ end
 
   puts 'flights seed finished'
 
-  puts 'Starting seed for hotels'
-
-  5.times do
-    hotel = Hotel.new(
-      name: Faker::Company.name,
-      description: Faker::Lorem.paragraph(sentence_count: 2, supplemental: false, random_sentences_to_add: 4),
-      address: Faker::Address.full_address
-    )
-    file = URI.open("https://picsum.photos/200/300?random=#{Faker::Number.number(digits: 4)}")
-    hotel.photo.attach(io: file, filename: "nes.png", content_type: "image/png")
-    hotel.save!
-  end
-
-  puts 'hotels seed finished'
-
   puts 'Seed finished!'
-end

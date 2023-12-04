@@ -5,7 +5,7 @@ class Activity < ApplicationRecord
   has_many :trips, through: :activity_statuses
   belongs_to :location
 
-  validates :name, :description, :address, :date, presence: true
+  validates :name, :description, :address, presence: true
   validates :price, numericality: { greater_than_or_equal_to: 0 }
   has_one_attached :photo
 end
