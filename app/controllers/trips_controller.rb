@@ -1,6 +1,6 @@
 class TripsController < ApplicationController
   before_action :set_trip, only: [:show, :edit, :update, :destroy]
-  before_action :set_trip_id, only: [:index, :show, :edit, :update, :destroy]
+  before_action :set_trip_id, only: [:homepage, :index, :show, :destroy]
 
   def homepage
   end
@@ -17,7 +17,6 @@ class TripsController < ApplicationController
     if params[:query].present?
       detail = params[:query].split('=') # detail[0] = location_id, detail[1] = 1
       update(detail)
-      puts "UPDATE CONFIRM !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
     end
   end
 
@@ -56,7 +55,7 @@ class TripsController < ApplicationController
 
   def destroy
     @trip.destroy
-    redirect_to homepage_path, notice: 'Trip was successfully deleted.'
+    redirect_to trips_path, notice: 'Trip was successfully deleted.'
   end
 
   private
