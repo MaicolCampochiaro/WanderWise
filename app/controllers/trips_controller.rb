@@ -72,4 +72,8 @@ class TripsController < ApplicationController
   def flight_params
     params.require(:flight_statuses).permit(:adult, :status,)
   end
+
+  def trip_params
+    params.permit(:name)
+  end
 end
