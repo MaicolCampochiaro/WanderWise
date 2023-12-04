@@ -19,7 +19,9 @@
       <span class="price-label-grey">Per person</span>
     </p>
     <span class="flight-price-total"><%= flight.price %> $</span>
-    <button class="select-flight-button">Select</button>
+    <%= link_to flight_create_path, :action => 'go' do  %>
+      <button class="select-flight-button">Select</button>
+    <% end %>
   </div>
 </div>
 <% end %>

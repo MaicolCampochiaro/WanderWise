@@ -1,4 +1,4 @@
-class HotelStatus < ApplicationRecord
+class RoomStatus < ApplicationRecord
   belongs_to :hotel
   belongs_to :trip
 

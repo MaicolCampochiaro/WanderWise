@@ -11,8 +11,17 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="navbarTitle">
-    <%= image_tag "logo.png", size: "50x50", class: "rounded-circle" %>
-    <h1><strong>Wanderwise</strong></h1>
+      <% if @trip_id.present? %>
+        <%= link_to locations_path(@trip_id), :action => 'go' do%>
+          <%= image_tag "logo.png", size: "50x50", class: "rounded-circle" %>
+        <% end %>
+        <%= link_to locations_path(@trip_id), :action => 'go' do%>
+          <h1><strong>Wanderwise</strong></h1>
+        <% end %>
+      <% else %>
+        <%= image_tag "logo.png", size: "50x50", class: "rounded-circle" %>
+        <h1><strong>Wanderwise</strong></h1>
+      <% end %>
     </div>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto">
