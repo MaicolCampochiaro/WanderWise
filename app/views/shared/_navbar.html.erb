@@ -5,11 +5,11 @@
         <i class="fas fa-bars"></i>
       <% end %>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <%= link_to "Start trip", locations_path('id'), class: "dropdown-item" %>
-          <%= link_to "Locations", locations_path('id'), class: "dropdown-item" %>
-          <%= link_to "Flights", trip_flights_path('id'), class: "dropdown-item" %>
-          <%= link_to "Hotels", trip_hotels_path('id'), class: "dropdown-item" %>
-          <%= link_to "Activities", trip_activities_path('id'), class: "dropdown-item" %>
+          <%= link_to "Start trip", locations_path('s'), class: "dropdown-item" %>
+          <%= link_to "Locations", locations_path(@trip), class: "dropdown-item" %>
+          <%= link_to "Flights", trip_flights_path(@trip), class: "dropdown-item" %>
+          <%= link_to "Hotels", trip_hotels_path(@trip), class: "dropdown-item" %>
+          <%= link_to "Activities", trip_activities_path(@trip), class: "dropdown-item" %>
         </div>
 
     </li>
