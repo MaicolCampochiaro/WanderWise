@@ -2,9 +2,6 @@
               method: :get,
               html: {
                 class: "mb-4",
-                data: {
-                  autocomplete_target: "form"
-                }
               } do |f| %>
   <div class="search-container r13 w-50">
     <div class="row row-cols-2">
@@ -16,10 +13,11 @@
       <div class="col">
         <%= f.text_field :to,
                         class: "form-control r13 search-text",
-                        placeholder: "To" %>
+                        placeholder: trip.location.name,
+                        value: trip.location.name %>
       </div>
       <div class="col">
-        <%= f.date_field :start_date,
+        <%= f.date_field :dates,
                         class: "form-control r13 search-text",
                         placeholder: "Select your dates",
                         data: {
@@ -30,7 +28,7 @@
                         } %>
       </div>
       <div class="col d-flex justify-content-between">
-        <%= f.number_field :adults, in: 1..20, step: 1 %>
+        <%# <%= f.number_field :adult, in: 1..20, step: 1 %>
         <%= f.submit "search", class: "form-control r13 search-btn mx-auto" %>
       </div>
     </div>

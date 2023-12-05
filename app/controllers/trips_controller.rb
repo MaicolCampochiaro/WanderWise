@@ -1,5 +1,5 @@
 class TripsController < ApplicationController
-  before_action :set_trip, only: [:show, :edit, :update, :destroy]
+  before_action :set_trip, only: [:show, :edit, :destroy]
   before_action :set_trip_id, only: [:homepage, :index, :show, :destroy]
 
   def homepage
@@ -13,11 +13,8 @@ class TripsController < ApplicationController
     end
   end
 
+  # overview route
   def show
-    if params[:query].present?
-      detail = params[:query].split('=') # detail[0] = location_id, detail[1] = 1
-      update(detail)
-    end
   end
 
   def new
@@ -39,20 +36,6 @@ class TripsController < ApplicationController
   def edit
   end
 
-  def update(detail)
-    case detail[0]
-    when 'location_id'
-      reference = Location.find(detail[1])
-    when 'flight_id'
-      reference = Flight.find(detail[1])
-    when 'hotel_id'
-      reference = Hotel.find(detail[1])
-    when 'activity_id'
-      reference = Activity.find(detail[1])
-    end
-    redirect_to request.referrer, alert: 'There was a problem, try again.' unless @trip.update( detail[0].to_sym => reference.id)
-  end
-
   def destroy
     @trip.destroy
     redirect_to trips_path, notice: 'Trip was successfully deleted.'
@@ -61,11 +44,19 @@ class TripsController < ApplicationController
   private
 
   def set_trip_id
-    @trip_id = params[:id]
+    if params[:trip_id].present?
+      @trip_id = params[:trip_id]
+    else
+      @trip_id = params[:id]
+    end
   end
 
   def set_trip
-    @trip = Trip.find(params[:id])
+    if params[:trip_id].present?
+      @trip = Trip.find(params[:trip_id])
+    else
+      @trip = Trip.find(params[:id])
+    end
   end
 
   def flight_params
