@@ -1,4 +1,6 @@
-  <div>
-    <%# <%= render "shared/search_flight" %>
-    <%= render "shared/flight_cards" %>
-  </div>
+<div>
+  <%= render 'shared/search_flight', trip: @trip%>
+  <% if @flights.count > 0 %>
+    <%= render "shared/flights_list" %>
+  <% end %>
+</div>

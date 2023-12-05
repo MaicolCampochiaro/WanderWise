@@ -1,4 +1,3 @@
-<% Flight.all.each do |flight| %>
 <div class="flight-product">
   <div class="flight-info">
     <div class="flight-product-infos">
@@ -19,9 +18,10 @@
       <span class="price-label-grey">Per person</span>
     </p>
     <span class="flight-price-total"><%= flight.price %> $</span>
-    <%= link_to flight_create_path, :action => 'go' do  %>
-      <button class="select-flight-button">Select</button>
+    <% if select_btn %>
+      <%= link_to new_trip_flight_path(@trip, flight_id: flight.id, ppl: 2 ) do  %>
+        <button class="select-flight-button">Select</button>
+      <% end %>
     <% end %>
   </div>
 </div>
-<% end %>

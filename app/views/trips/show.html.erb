@@ -13,7 +13,7 @@
     <h1 class="">Flight</h1>
     <div class="border-dark border-3 border-top border-bottom py-3">
       <% if @trip.flights.present?%>
-        <%= render 'shared/flight_cards' %>
+        <%= render 'shared/flight_card', flight: @trip.flights.last, select_btn: false %>
       <% else %>
         <%= link_to "Add flight", trip_flights_path(@trip_id), class: "btn btn-primary p28" %>
       <% end %>
