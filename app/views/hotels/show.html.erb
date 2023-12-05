@@ -1,0 +1,27 @@
+<div class="Show page container d-flex ">
+
+
+  <div class="book-room-form justify-content-center me-5 text-center col-md-3" style="background-color: white; border: 0,8px solid #000; padding: 20px; border-radius: 2px; height: 230px;">
+    <h2>Book a room </h2>
+    <%= render "shared/search_room" %>
+  </div>
+
+
+<div class="row" style="">
+  <div class="col-md-12 ms-2" style="background-color: white; border: 0,8px solid #000; padding: 20px; border-radius: 2px;">
+    <h2><%= @hotel.name %></h2>
+    <div class="d-flex">
+      <img src="<%= cl_image_path(@hotel.photo.key, resize: '200x300', width: 100) %>" alt="<%= @hotel.name %>" class="wider-image img-fluid">
+      <div class="ms-3">
+        <div>
+          <h4>Description:</h4>
+          <p><%= @hotel.description %></p>
+        </div>
+        <div>
+          <h4>Address:</h4>
+          <p><%= @hotel.address %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
