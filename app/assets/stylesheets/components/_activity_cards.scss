@@ -4,13 +4,13 @@
   display: flex;
   align-items: center;
   position: relative;
+  margin: 20px auto;
 }
 
 .activity-product img {
   height: 100%;
   width: auto;
   object-fit: cover;
-  padding: 16px;
 }
 
 .activity-product h2 {
@@ -32,7 +32,6 @@
 }
 
 .activity-container {
-  margin: 16px;
   overflow: auto;
   height: 500px;
   width: 50%;
