@@ -1,19 +1,16 @@
 .activity-product {
   overflow: hidden;
-  height: 120px;
-  background: white;
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
   display: flex;
   align-items: center;
   position: relative;
-  margin: 16px;
+  margin: 20px auto;
 }
 
 .activity-product img {
   height: 100%;
   width: auto;
   object-fit: cover;
-  padding: 16px;
 }
 
 .activity-product h2 {
@@ -34,14 +31,7 @@
   padding: 16px;
 }
 
-.activity_select_button {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-}
-
 .activity-container {
-  margin: 16px;
   overflow: auto;
   height: 500px;
   width: 50%;
