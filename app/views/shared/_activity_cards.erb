@@ -1,23 +1,20 @@
 <div class="activity-product">
-  <div class="card">
-    <div class="poster">
-      <img src="<%= cl_image_path(activity.photo.key, resize: '200x300') %>" alt="<%= activity.name %>">
-    </div>
-    <div class="details">
-      <h1><%= activity.name %></h1>
-      <h2><%= activity.address %></h2>
-      <div class="rating">
-        <i class="fas fa-star"></i>
-        <i class="fas fa-star"></i>
-        <i class="fas fa-star"></i>
-        <i class="fas fa-star"></i>
-        <i class="far fa-star"></i>
-        <span>4.2/5</span>
-      </div>
-      <p class="desc">
-        <%= activity.description %>
-      </p>
-      <button class="activity_select_button">Select</button>
-    </div>
-  </div>
+	<div class="card">
+		<div class="poster"><img src="<%= cl_image_path(activity.photo.key, resize: '200x300') %>" alt="<%= activity.name %>"></div>
+		<div class="details">
+			<h1><%= activity.name %></h1>
+			<h2><%= activity.address %></h2>
+			<div class="rating">
+				<i class="fas fa-star"></i>
+				<i class="fas fa-star"></i>
+				<i class="fas fa-star"></i>
+				<i class="fas fa-star"></i>
+				<i class="far fa-star"></i>
+				<span>4.2/5</span>
+			</div>
+			<p class="desc">
+				<%= activity.description %>
+			</p>
+		</div>
+	</div>
 </div>

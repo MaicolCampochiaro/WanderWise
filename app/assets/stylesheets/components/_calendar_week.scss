@@ -1,0 +1,14 @@
+.days-of-week {
+  margin-top: 24px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.day-box {
+  border: 1px solid #000; /* Adjust the border styles as needed */
+  padding: 10px 10px; /* Adjust the padding as needed */
+  text-align: center;
+  height: 150px;
+  width: 14.285%; /* 100% / 7 days = 14.285% */
+  margin-right: 0;
+}
