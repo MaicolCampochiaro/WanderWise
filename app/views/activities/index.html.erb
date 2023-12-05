@@ -3,7 +3,7 @@
     <div class="activity-container col-md-6">
       <div>
         <% Activity.all.each do |activity| %>
-          <%= render partial: "shared/activity_cards", locals: { activity: activity } %>
+          <%= render partial: "shared/activity_cards", locals: { activity: activity, trip: @trip } %>
         <% end %>
       </div>
     </div>

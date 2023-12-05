@@ -15,6 +15,19 @@
 			<p class="desc">
 				<%= activity.description %>
 			</p>
+  <div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Dropdown button
+  </button>
+  <ul class="dropdown-menu">
+    <% if defined?(trip)%>
+    <% trip.date_range.each do |date| %>
+    <li><a class="dropdown-item" href="<%= trip_activities_path(trip, activity_id: activity.id, date: date) %>" data-turbo-method="post"><%= date %></a></li>
+    <% end %>
+    <% end %>
+
+  </ul>
+</div>
 		</div>
 	</div>
 </div>

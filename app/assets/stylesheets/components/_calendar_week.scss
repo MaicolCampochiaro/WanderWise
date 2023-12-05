@@ -2,6 +2,7 @@
   margin-top: 24px;
   display: flex;
   justify-content: space-around;
+  border: 1px solid #000;
 }
 
 .day-box {
@@ -9,6 +10,5 @@
   padding: 10px 10px; /* Adjust the padding as needed */
   text-align: center;
   height: 150px;
-  width: 14.285%; /* 100% / 7 days = 14.285% */
   margin-right: 0;
 }
