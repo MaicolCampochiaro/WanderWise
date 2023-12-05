@@ -1,0 +1,37 @@
+<%= form_with url: trip_flights_path(params[:trip_id]),
+              method: :get,
+              html: {
+                class: "mb-4 mx-auto",
+                data: {
+                  autocomplete_target: "form"
+                }
+              } do |f| %>
+  <div class="search-container r13">
+    <div class="row">
+      <div class="col mb-2">
+        <%= f.date_field :start_date,
+                        class: "form-control r13 search-text",
+                        placeholder: "Select your dates",
+                        data: {
+                          controller: "flatpickr",
+                          flatpickr_date_format: "Y-m-d",
+                          mode: "range",
+                          flatpickr_min_date: Time.zone.now
+                        } %>
+      </div>
+    </div>
+<div class="row">
+  <div class="col mb-2 dropup">
+    <%= f.select :room_type,
+        options_for_select(["Single Room", "Double Room", "Suite", "Presidential Suite"], selected: params[:room_type]),
+        { prompt: "Select Room Type" },
+        class: "form-control r13 search-text" %>
+  </div>
+</div>
+    <div class="row">
+      <div class="col d-flex justify-content-between">
+        <%= f.submit "search", class: "form-control r13 search-btn mx-auto" %>
+      </div>
+    </div>
+  </div>
+<% end %>
