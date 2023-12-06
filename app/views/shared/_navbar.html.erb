@@ -1,6 +1,6 @@
 <div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
   <div class="container-fluid">
-    <% if false %>
+    <% if user_signed_in? && params[:trip_id].present? %>
       <li class="nav-item dropdown">
         <%= link_to "#", class: "btn btn-ghost", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false do %>
           <i class="fas fa-bars"></i>
@@ -13,10 +13,11 @@
           <%= link_to "Activities", trip_activities_path(@trip), class: "dropdown-item" %>
         </div>
       </li>
+    <% else %>
+      <h1></h1>
     <% end %>
-    <h1></h1>
     <div class="navbarTitle">
-      <% if current_user.present? %>
+      <% if user_signed_in? %>
         <%= link_to my_trips_path() do%>
           <%= image_tag "logo.png", size: "50x50", class: "rounded-circle" %>
         <% end %>
