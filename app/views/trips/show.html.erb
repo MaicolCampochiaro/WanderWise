@@ -23,30 +23,31 @@
     <h1 class="">Hotel</h1>
     <div class="border-dark border-3 border-top border-bottom py-3">
       <% if @trip.hotels.present?%>
-        <%= render 'shared/hotel_card', hotel: @trip.hotel %>
+        <%= render 'shared/hotel_card', hotel: @trip.hotels.last, select_btn: false %>
       <% else %>
-        <%= link_to "Add hotel", trip_hotels_path(@trip_id), class: "btn btn-primary p28" %>
+        <%= link_to "Add hotel", trip_hotels_path(@trip), class: "btn btn-primary p28" %>
       <% end %>
     </div>
   </div>
   <div class="">
     <h1 class="">Activity</h1>
     <div class="border-dark border-3 border-top border-bottom py-3">
-      <% if @trip.activities.present?%>
-        <%= render 'shared/activity_cards' %>
-      <% else %>
-        <%= link_to "Add activitiy", trip_activities_path(@trip_id), class: "btn btn-primary p28" %>
-      <% end %>
-      <div class="days-of-week d-flex">
-        <% days_of_week = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] %>
-        <% days_of_week.each do |day| %>
-        <div class="day-box">
-          <h3><%= day %></h3>
-          <!-- Add your activity selection logic here -->
-          <!-- You may use checkboxes, dropdowns, or any other input method -->
+ <div class="days-of-week row">
+  <% if @date_range.present? %>
+    <% @date_range.each do |date| %>
+      <div class="day-box col">
+        <h3><%= date.to_fs(:short) %></h3>
+        <div class="day-activities">
+          <% @trip.activity_statuses.where(date: date).each do |activity_status| %>
+            <%= render partial: "shared/location_card", locals: { location: activity_status.activity, trip: @trip } %>
+          <% end %>
         </div>
-        <% end %>
       </div>
-    </div>
-  </div>
+    <% end %>
+  <% else %>
+    <%= link_to "Add Activity", trip_activities_path(@trip), class: "btn btn-primary p28" %>
+  <% end %>
+</div>
+</div>
+</div>
 </div>

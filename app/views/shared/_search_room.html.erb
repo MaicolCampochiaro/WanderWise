@@ -1,4 +1,4 @@
-<%= form_with url: trip_flights_path(params[:trip_id]),
+<%= form_with url: trip_hotels_path(params[:trip_id]),
               method: :get,
               html: {
                 class: "mb-4 mx-auto",
@@ -7,19 +7,6 @@
                 }
               } do |f| %>
   <div class="search-container r13">
-    <div class="row">
-      <div class="col mb-2">
-        <%= f.date_field :start_date,
-                        class: "form-control r13 search-text",
-                        placeholder: "Select your dates",
-                        data: {
-                          controller: "flatpickr",
-                          flatpickr_date_format: "Y-m-d",
-                          mode: "range",
-                          flatpickr_min_date: Time.zone.now
-                        } %>
-      </div>
-    </div>
 <div class="row">
   <div class="col mb-2 dropup">
     <%= f.select :room_type,

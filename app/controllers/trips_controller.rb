@@ -15,6 +15,8 @@ class TripsController < ApplicationController
 
   # overview route
   def show
+    @trip = Trip.find(params[:id])
+    @date_range = @trip.date_range
   end
 
   def new
