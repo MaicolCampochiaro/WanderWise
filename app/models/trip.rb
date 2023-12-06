@@ -10,6 +10,9 @@ class Trip < ApplicationRecord
 
   validates :name, presence: true
   def date_range
+
+    return unless flights.exists?
+
     start_date = flights.last.start_date
     end_date = flights.last.end_date
 
