@@ -4,6 +4,14 @@ class HotelsController < ApplicationController
 
   def index
     @hotels = Hotel.where(location: @trip.location)
+    @markers = @hotels.geocoded.map do |hotel|
+      {
+        lat: hotel.latitude,
+        lng: hotel.longitude,
+        # info_window_html: render_to_string(partial: "maps/info_window", locals: { location: location }, formats: [:html]),
+        marker_html: render_to_string(partial: "maps/marker",locals: { hotel: hotel }, formats: [:html])
+      }
+    end
   end
 
   def show
