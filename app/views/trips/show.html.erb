@@ -21,7 +21,7 @@
     <h1 class="">Flight
     <% if @trip.flights.present?%>
       <span class="ms-3">
-    <%= link_to "Add flight", trip_flights_path(@trip_id), class: "btn btn-primary p28" %>
+    <%= link_to "Add flight", trip_flights_path(@trip), class: "btn btn-primary p28" %>
     </span>
     <% end %>
     </h1>
