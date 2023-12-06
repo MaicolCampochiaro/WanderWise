@@ -1,12 +1,22 @@
 <div class="overview">
   <div class="">
-    <h1 class="">Location</h1>
+    <h1 class=" d-flex mb-3">Location
+      <% if @trip.location.present? %>
+        <span class="float ms-3">
+          <%= button_to "Change Selection", class: "btn btn-primary p-2" %>
+        </span>
+      <% end %>
+    </h1>
     <div class="border-dark border-3 border-top border-bottom py-3">
-      <% if @trip.location.present?%>
+      <% if @trip.location.present? %>
+      <div class="card">
+        <div class="card-body text-center">
         <%= render 'shared/location_card', location: @trip.location %>
       <% else %>
-        <%= link_to "Add Location", locations_path(@trip), class: "btn btn-primary p28" %>
+        <%= link_to "Add Location", locations_path(@trip), class: "btn btn-primary p-2" %>
       <% end %>
+      </div>
+      </div>
     </div>
   </div>
   <div class="">
@@ -30,9 +40,12 @@
     </div>
   </div>
   <div class="">
+    <div class="d-flex">
     <h1 class="">Activity</h1>
+    <%= link_to "Add Activity", trip_activities_path(@trip), class: "btn btn-primary p28" %>
+    </div>
     <div class="border-dark border-3 border-top border-bottom py-3">
- <div class="days-of-week row">
+  <div class="days-of-week row">
   <% if @date_range.present? %>
     <% @date_range.each do |date| %>
       <div class="day-box col">
