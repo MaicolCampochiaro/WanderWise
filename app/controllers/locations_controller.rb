@@ -24,12 +24,12 @@ class LocationsController < ApplicationController
 
   def create_location
     reference = nil
-    @trip = Trip.find(params[:trip_id])
+    @trip = Trip.find(params[:id])
     if params[:location].present?
       reference = Location.find(params[:location])
     end
     if @trip.update(location: reference)
-      redirect_to overview_path(trip_id: @trip, query: ""), notice: 'Trip was successfully created.'
+      redirect_to overview_path(id: @trip, query: ""), notice: 'Trip was successfully created.'
     else
       redirect_to request.referrer, alert: 'There was a problem, try again.'
     end
@@ -37,6 +37,6 @@ class LocationsController < ApplicationController
 
   private
   def set_trip
-    @trip = Trip.find(params[:trip_id])
+    @trip = Trip.find(params[:id])
   end
 end

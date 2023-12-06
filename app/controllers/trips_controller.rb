@@ -1,6 +1,5 @@
 class TripsController < ApplicationController
-  before_action :set_trip, only: [:show, :edit, :destroy]
-  before_action :set_trip_id, only: [:homepage, :index, :show, :destroy]
+  before_action :set_trip, only: [:index, :create, :show, :destroy]
 
   def homepage
   end
@@ -20,7 +19,6 @@ class TripsController < ApplicationController
   end
 
   def new
-    @trip = Trip.new
   end
 
   def create
@@ -35,9 +33,6 @@ class TripsController < ApplicationController
     end
   end
 
-  def edit
-  end
-
   def destroy
     @trip.destroy
     redirect_to trips_path, notice: 'Trip was successfully deleted.'
@@ -45,18 +40,8 @@ class TripsController < ApplicationController
 
   private
 
-  def set_trip_id
-    if params[:trip_id].present?
-      @trip_id = params[:trip_id]
-    else
-      @trip_id = params[:id]
-    end
-  end
-
   def set_trip
-    if params[:trip_id].present?
-      @trip = Trip.find(params[:trip_id])
-    else
+    if params[:id].present?
       @trip = Trip.find(params[:id])
     end
   end

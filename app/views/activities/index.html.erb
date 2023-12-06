@@ -1,18 +1,14 @@
-<div class="container-activities">
-  <div class="row">
-    <div class="activity-container col-md-6">
-      <div>
-        <% Activity.all.each do |activity| %>
-          <%= render partial: "shared/activity_cards", locals: { activity: activity, trip: @trip } %>
-        <% end %>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div data-controller="map"
-        id='map'
-        data-map-markers-value="<%= @markers.to_json %>"
-        data-map-api-key-value="<%= ENV["MAPBOX_API_KEY"] %>"
-        style='height: 420px;'></div>
-    </div>
+<div class="row">
+  <div class="activity-container col-md-6">
+    <% @activities.each do |activity| %>
+      <%= render partial: "shared/activity_cards", locals: { activity: activity, trip: @trip } %>
+    <% end %>
+  </div>
+  <div class="col-md-6">
+    <div data-controller="map"
+      id='map'
+      data-map-markers-value="<%= @markers.to_json %>"
+      data-map-api-key-value="<%= ENV["MAPBOX_API_KEY"] %>"
+      style='height: 100%;'></div>
   </div>
 </div>
