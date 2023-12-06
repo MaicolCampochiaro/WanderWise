@@ -1,3 +1,20 @@
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#trip_name">
+  Start your trip
+</button>
+<div class="modal fade" id="trip_name" tabindex="-1" aria-labelledby="title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content py-0 px-2">
+        <div class="modal-header">
+          <h5 class="modal-title" id="title">trip title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body py-0">
+          <%= render 'shared/trip_name_popup' %>
+        </div>
+      </div>
+  </div>
+</div>
+
 <div class="d-flex flex-wrap justify-content-between">
   <% @trips.each do |trip| %>
     <a href="<%= overview_path(id: trip, query: "") %>" class="card-mytrips col-4" <% if trip.location.present? %> style="background-image: url('<%= cl_image_path trip.location.photo.key, height: 300, crop: :fill %>')" <% end %>>
