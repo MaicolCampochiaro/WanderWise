@@ -9,4 +9,10 @@ class Trip < ApplicationRecord
   has_many :activities, through: :activity_statuses
 
   validates :name, presence: true
+  def date_range
+    start_date = flights.last.start_date
+    end_date = flights.last.end_date
+
+    (start_date..end_date)
+  end
 end
