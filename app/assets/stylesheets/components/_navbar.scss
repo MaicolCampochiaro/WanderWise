@@ -1,6 +1,6 @@
 .navbar-lewagon {
   justify-content: space-between;
-  background: rgb(255, 242, 242);
+  background: #E5E4E2;
   position: fixed;
   width: 100%;
   z-index: 1000;
@@ -21,9 +21,12 @@
   justify-content: center;
 }
 .navbar {
-  background-color: #EEE8A9;
+  background-color: #fafafa;
   color: #469ff8;
   padding: 10px;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: #000000;
 }
 
 .navbar ul {
