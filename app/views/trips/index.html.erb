@@ -1,0 +1,9 @@
+<div class="d-flex flex-wrap justify-content-between">
+  <% @trips.each do |trip| %>
+    <a href="<%= overview_path(trip_id: trip, query: "") %>" class="card-mytrips col-4" <% if trip.location.present? %> style="background-image: url('<%= cl_image_path trip.location.photo.key, height: 300, crop: :fill %>')" <% end %>>
+      <h3>
+        <%= trip.name %>
+      </h3>
+    </a>
+  <% end %>
+</div>
