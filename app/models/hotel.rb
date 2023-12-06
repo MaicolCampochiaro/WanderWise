@@ -1,5 +1,5 @@
 class Hotel < ApplicationRecord
-  has_many :hotel_statuses, dependent: :destroy
+  has_many :room_statuses, dependent: :destroy
   belongs_to :location
 
   validates :name, :description, :address, presence: true

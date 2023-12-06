@@ -1,0 +1,7 @@
+<div class="hotel-product-infos">
+  <h2><%= room_status.room_name %></h2>
+  <p><%= room_status.price %></p>
+</div>
+<%= link_to new_trip_hotel_path(@trip, room_id: room_status.id ) do  %>
+  <button class="hotel_select_button btn btn-primary">book now!</button>
+<% end %>
