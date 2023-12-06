@@ -1,12 +1,12 @@
 <div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
   <div class="container-fluid">
-    <% if user_signed_in? && params[:trip_id].present? %>
+    <% if user_signed_in? && params[:id].present? %>
       <li class="nav-item dropdown">
         <%= link_to "#", class: "btn btn-ghost", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false do %>
           <i class="fas fa-bars"></i>
         <% end %>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <%= link_to "Overview", overview_path(trip_id: @trip, query: ""), class: "dropdown-item" %>
+          <%= link_to "Overview", overview_path(id: @trip, query: ""), class: "dropdown-item" %>
           <%= link_to "Locations", locations_path(@trip), class: "dropdown-item" %>
           <%= link_to "Flights", trip_flights_path(@trip), class: "dropdown-item" %>
           <%= link_to "Hotels", trip_hotels_path(@trip), class: "dropdown-item" %>

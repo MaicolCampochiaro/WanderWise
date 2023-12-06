@@ -13,7 +13,7 @@ class LocationsController < ApplicationController
         lat: location.latitude,
         lng: location.longitude,
         info_window_html: render_to_string(partial: "maps/info_window", locals: { location: location }, formats: [:html]),
-        marker_html: render_to_string(partial: "maps/marker",locals: { location: location }, formats: [:html])
+        marker_html: render_to_string(partial: "maps/marker",locals: { marker: location }, formats: [:html])
       }
     end
     respond_to do |format|
@@ -29,7 +29,7 @@ class LocationsController < ApplicationController
       reference = Location.find(params[:location])
     end
     if @trip.update(location: reference)
-      redirect_to overview_path(trip_id: @trip, query: ""), notice: 'Trip was successfully created.'
+      redirect_to overview_path(id: @trip, query: ""), notice: 'Trip was successfully created.'
     else
       redirect_to request.referrer, alert: 'There was a problem, try again.'
     end

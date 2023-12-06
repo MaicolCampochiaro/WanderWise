@@ -1,5 +1,4 @@
 class FlightsController < ApplicationController
-  before_action :set_trip_id, only: [:index, :new]
   before_action :set_trip, only: [:index, :new]
 
   def index
@@ -25,7 +24,7 @@ class FlightsController < ApplicationController
   def new
     flight = Flight.find(params[:flight_id])
     if FlightStatus.create!(flight: flight, trip: @trip, status: "planned", adult: params[:ppl])
-      redirect_to overview_path(trip_id: @trip, query: ""), notice: 'Flight was successfully added.'
+      redirect_to overview_path(id: @trip, query: ""), notice: 'Flight was successfully added.'
     else
       redirect_to request.referrer, alert: 'There was a problem, try again.'
     end
@@ -33,18 +32,8 @@ class FlightsController < ApplicationController
 
   private
 
-  def set_trip_id
-    if params[:trip_id].present?
-      @trip_id = params[:trip_id]
-    else
-      @trip_id = params[:id]
-    end
-  end
-
   def set_trip
-    if params[:trip_id].present?
-      @trip = Trip.find(params[:trip_id])
-    else
+    if params[:id].present?
       @trip = Trip.find(params[:id])
     end
   end
