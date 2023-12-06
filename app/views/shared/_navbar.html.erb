@@ -1,27 +1,26 @@
 <div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
   <div class="container-fluid">
-    <li class="nav-item dropdown">
-      <%= link_to "#", class: "btn btn-ghost", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false do %>
-        <i class="fas fa-bars"></i>
-      <% end %>
+    <% if false %>
+      <li class="nav-item dropdown">
+        <%= link_to "#", class: "btn btn-ghost", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false do %>
+          <i class="fas fa-bars"></i>
+        <% end %>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <%= link_to "Start trip", locations_path('s'), class: "dropdown-item" %>
+          <%= link_to "Overview", overview_path(trip_id: @trip, query: ""), class: "dropdown-item" %>
           <%= link_to "Locations", locations_path(@trip), class: "dropdown-item" %>
           <%= link_to "Flights", trip_flights_path(@trip), class: "dropdown-item" %>
           <%= link_to "Hotels", trip_hotels_path(@trip), class: "dropdown-item" %>
           <%= link_to "Activities", trip_activities_path(@trip), class: "dropdown-item" %>
         </div>
-
-    </li>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+      </li>
+    <% end %>
+    <h1></h1>
     <div class="navbarTitle">
-      <% if @trip_id.present? %>
-        <%= link_to locations_path(@trip_id), :action => 'go' do%>
+      <% if current_user.present? %>
+        <%= link_to my_trips_path() do%>
           <%= image_tag "logo.png", size: "50x50", class: "rounded-circle" %>
         <% end %>
-        <%= link_to locations_path(@trip_id), :action => 'go' do%>
+        <%= link_to my_trips_path() do%>
           <h1><strong>Wanderwise</strong></h1>
         <% end %>
       <% else %>
@@ -37,12 +36,12 @@
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
               <%= link_to "My trips", trips_path, class: "dropdown-item" %>
               <%= link_to "Edit account", "#", class: "dropdown-item" %>
-              <%= link_to "Log out", "#", class: "dropdown-item", data: {turbo_method: :delete} %>
+              <%= button_to "Log out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
             </div>
           </li>
         <% else %>
           <li class="nav-item">
-          <%= link_to "Login", new_user_session_path, class: "nav-link" %>
+          <%= link_to "Login", new_user_session_path(:login => true), class: "nav-link" %>
           </li>
         <% end %>
       </ul>
