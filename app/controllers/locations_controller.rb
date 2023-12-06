@@ -13,7 +13,7 @@ class LocationsController < ApplicationController
         lat: location.latitude,
         lng: location.longitude,
         info_window_html: render_to_string(partial: "maps/info_window", locals: { location: location }, formats: [:html]),
-        marker_html: render_to_string(partial: "maps/marker",locals: { location: location }, formats: [:html])
+        marker_html: render_to_string(partial: "maps/marker",locals: { marker: location }, formats: [:html])
       }
     end
     respond_to do |format|
@@ -24,7 +24,7 @@ class LocationsController < ApplicationController
 
   def create_location
     reference = nil
-    @trip = Trip.find(params[:id])
+    @trip = Trip.find(params[:trip_id])
     if params[:location].present?
       reference = Location.find(params[:location])
     end
@@ -37,6 +37,6 @@ class LocationsController < ApplicationController
 
   private
   def set_trip
-    @trip = Trip.find(params[:id])
+    @trip = Trip.find(params[:trip_id])
   end
 end

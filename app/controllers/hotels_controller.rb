@@ -9,7 +9,7 @@ class HotelsController < ApplicationController
         lat: hotel.latitude,
         lng: hotel.longitude,
         # info_window_html: render_to_string(partial: "maps/info_window", locals: { location: location }, formats: [:html]),
-        marker_html: render_to_string(partial: "maps/marker",locals: { hotel: hotel }, formats: [:html])
+        marker_html: render_to_string(partial: "maps/marker", locals: { marker: hotel }, formats: [:html])
       }
     end
   end

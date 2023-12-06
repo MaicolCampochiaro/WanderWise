@@ -30,7 +30,7 @@ static values = {
 
     new mapboxgl.Marker(customMarker)
       .setLngLat([marker.lng, marker.lat ])
-      .setPopup(popup) // Add this
+      // .setPopup(popup) // Add this
       .addTo(this.map)
   });
 

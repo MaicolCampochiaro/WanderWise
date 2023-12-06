@@ -2,8 +2,8 @@ Rails.application.routes.draw do
   devise_for :users
 
   root to: "trips#homepage", as: :homepage
-  get '/locations/:id' => 'locations#index', as: :locations
-  get '/location/:id' => 'locations#create_location', as: 'create_location'
+  get '/locations/:trip_id' => 'locations#index', as: :locations
+  get '/location/:trip_id' => 'locations#create_location', as: 'create_location'
   resources :trips, except: [:update] do
     resources :flights, only: [:index, :new], as: :flights
     resources :hotels, only: [:index, :new, :show], as: :hotels
