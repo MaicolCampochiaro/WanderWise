@@ -63,10 +63,11 @@
       <div class="days-of-week row">
         <% if @date_range.present? %>
           <% @date_range.each do |date| %>
-            <div class="day-box col">
+            <div class="day-box col-3">
               <h3><%= date.to_fs(:short) %></h3>
               <% @trip.activity_statuses.where(date: date).each do |activity_status| %>
                 <%= render partial: "shared/location_card", locals: { location: activity_status.activity, trip: @trip } %>
+                <br>
               <% end %>
             </div>
           <% end %>
