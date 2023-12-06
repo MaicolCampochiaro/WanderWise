@@ -1,4 +1,3 @@
-<% Activity.all.each do |activity| %>
 <div class="activity-product">
 	<div class="card">
 		<div class="poster"><img src="<%= cl_image_path(activity.photo.key, resize: '200x300') %>" alt="<%= activity.name %>"></div>
@@ -16,8 +15,19 @@
 			<p class="desc">
 				<%= activity.description %>
 			</p>
-      <button class="activity_select_button">Select</button>
+  <div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Dropdown button
+  </button>
+  <ul class="dropdown-menu">
+    <% if defined?(trip)%>
+    <% trip.date_range.each do |date| %>
+    <li><a class="dropdown-item" href="<%= trip_activities_path(trip, activity_id: activity.id, date: date) %>" data-turbo-method="post"><%= date %></a></li>
+    <% end %>
+    <% end %>
+
+  </ul>
+</div>
 		</div>
 	</div>
 </div>
-<% end %>
