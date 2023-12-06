@@ -3,6 +3,10 @@
     <h2>Book a room </h2>
     <%= render "shared/search_room", trip: @trip %>
   </div>
+  <div>
+  <%= render 'shared/hotel_show_card', hotel: @hotel%>
+  </div>
+  <div>
     <%= render "shared/room_list" %>
-
+  </div>
 </div>

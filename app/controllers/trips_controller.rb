@@ -6,8 +6,8 @@ class TripsController < ApplicationController
   end
 
   def index
-    if params[:query].present?
-      @trips = Trip.where('name ILIKE ?', "%#{params[:query]}%")
+    if current_user.present?
+      @trips = Trip.where(user_id: current_user.id)
     else
       @trips = Trip.all
     end

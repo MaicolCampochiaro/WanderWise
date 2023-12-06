@@ -1,5 +1,3 @@
-<%= render 'shared/hotel_show_card', hotel: @hotel%>
-
     <% if @room_statuses.present? %>
   <% @room_statuses.each do |room| %>
     <%= render 'shared/room_card', hotel: @hotel, room_status: room %>

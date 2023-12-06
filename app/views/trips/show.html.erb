@@ -2,25 +2,29 @@
   <div class="">
     <h1 class=" d-flex mb-3">Location
       <% if @trip.location.present? %>
-        <span class="float ms-3">
-          <%= button_to "Change Selection", class: "btn btn-primary p-2" %>
+        <span class="ms-3">
+        <%= link_to "Add Location", locations_path(@trip), class: "btn btn-primary p-2" %>
         </span>
       <% end %>
     </h1>
     <div class="border-dark border-3 border-top border-bottom py-3">
+    <div class="card-category" style="width: 300;">
       <% if @trip.location.present? %>
-      <div class="card">
-        <div class="card-body text-center">
         <%= render 'shared/location_card', location: @trip.location %>
       <% else %>
         <%= link_to "Add Location", locations_path(@trip), class: "btn btn-primary p-2" %>
       <% end %>
       </div>
       </div>
-    </div>
   </div>
   <div class="">
-    <h1 class="">Flight</h1>
+    <h1 class="">Flight
+    <% if @trip.flights.present?%>
+      <span class="ms-3">
+    <%= link_to "Add flight", trip_flights_path(@trip_id), class: "btn btn-primary p28" %>
+    </span>
+    <% end %>
+    </h1>
     <div class="border-dark border-3 border-top border-bottom py-3">
       <% if @trip.flights.present?%>
         <%= render 'shared/flight_card', flight: @trip.flights.last, select_btn: false %>
@@ -30,10 +34,18 @@
     </div>
   </div>
   <div class="">
-    <h1 class="">Hotel</h1>
-    <div class="border-dark border-3 border-top border-bottom py-3">
+    <h1 class="">Hotel
+    <% if @trip.hotels.present?%>
+    <span class="ms-3">
+    <%= link_to "Add hotel", trip_hotels_path(@trip), class: "btn btn-primary p28" %>
+    </span>
+    <% end %>
+    </h1>
+    <div class="border-dark border-3 border-top border-bottom py-3 d-flex">
       <% if @trip.hotels.present?%>
+      <div class="hotel-product">
         <%= render 'shared/hotel_card', hotel: @trip.hotels.last, select_btn: false %>
+      </div>
       <% else %>
         <%= link_to "Add hotel", trip_hotels_path(@trip), class: "btn btn-primary p28" %>
       <% end %>
@@ -41,26 +53,27 @@
   </div>
   <div class="">
     <div class="d-flex">
-    <h1 class="">Activity</h1>
-    <%= link_to "Add Activity", trip_activities_path(@trip), class: "btn btn-primary p28" %>
+    <h1 class="">Activity<% if @date_range.present? %>
+        <span class="ms-3">
+          <%= link_to "Add Activity", trip_activities_path(@trip), class: "btn btn-primary p28" %>
+        </span>
+      <% end %></h1>
     </div>
     <div class="border-dark border-3 border-top border-bottom py-3">
-  <div class="days-of-week row">
-  <% if @date_range.present? %>
-    <% @date_range.each do |date| %>
-      <div class="day-box col">
-        <h3><%= date.to_fs(:short) %></h3>
-        <div class="day-activities">
-          <% @trip.activity_statuses.where(date: date).each do |activity_status| %>
-            <%= render partial: "shared/location_card", locals: { location: activity_status.activity, trip: @trip } %>
+      <div class="days-of-week row">
+        <% if @date_range.present? %>
+          <% @date_range.each do |date| %>
+            <div class="day-box col">
+              <h3><%= date.to_fs(:short) %></h3>
+              <% @trip.activity_statuses.where(date: date).each do |activity_status| %>
+                <%= render partial: "shared/location_card", locals: { location: activity_status.activity, trip: @trip } %>
+              <% end %>
+            </div>
           <% end %>
-        </div>
+        <% else %>
+          <%= link_to "Add Activity", trip_activities_path(@trip), class: "btn btn-primary p28" %>
+        <% end %>
       </div>
-    <% end %>
-  <% else %>
-    <%= link_to "Add Activity", trip_activities_path(@trip), class: "btn btn-primary p28" %>
-  <% end %>
-</div>
-</div>
-</div>
+    </div>
+  </div>
 </div>

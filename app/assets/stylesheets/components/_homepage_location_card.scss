@@ -22,6 +22,10 @@
   grid-gap: 16px;
 }
 
+.overview-card-category {
+  min-height: 200px;
+}
+
 // Smallest device
 @media (min-width: 100px) and (max-width: 575px) {
   .cards {
