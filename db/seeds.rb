@@ -160,6 +160,7 @@ sleep(60)
         RoomStatus.create!(room_name: room, price: Faker::Number.number(digits: 3), status: "planned", hotel: hotel)
       end
     end
+    sleep(60)
   end
 end
 
