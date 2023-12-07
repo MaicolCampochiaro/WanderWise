@@ -1,42 +1,46 @@
 <div class="overview">
-  <div class="d-flex justify-content-end mt-3">
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#payModal" id="button_style">
-      Book my trip
-    </button>
-  </div>
-  <div class="modal fade" id="payModal" tabindex="-1" aria-labelledby="payModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="payModalLabel">Payment slip</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <%= form_with url: trip_activities_path(@trip), method: :post do |f| %>
-            <% if @trip.flights.present? %>
-              <div class="border-black border-bottom">
-                <%= f.label "Flight: € " %>
-                <%= f.text_field :flight_price, value: @trip.flights.last.price, class: "nothing", readonly: true %>
-              </div>
+  <% if params[:booked] %>
+    <h3>Your trip is booked. Enjoy the vacation!</h3>
+  <% else %>
+    <div class="d-flex justify-content-end mt-3">
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#payModal" id="button_style">
+        Book my trip
+      </button>
+    </div>
+    <div class="modal fade" id="payModal" tabindex="-1" aria-labelledby="payModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="payModalLabel">Payment slip</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <%= form_with url: trip_activities_path(@trip, booked: true), method: :post do |f| %>
+              <% if @trip.flights.present? %>
+                <div class="border-black border-bottom">
+                  <%= f.label "Flight: € " %>
+                  <%= f.text_field :flight_price, value: @trip.flights.last.price, class: "nothing", readonly: true %>
+                </div>
+              <% end %>
+              <% if @trip.hotels.present? %>
+                <div class="border-black border-bottom">
+                  <%= f.label "Hotel: € " %>
+                  <%= f.text_field :hotel_price, value: @trip.room_statuses.last.price, class: "nothing", readonly: true %>
+                </div>
+              <% end %>
+              <% if @trip.activities.present? %>
+                <div class="border-black border-bottom">
+                  <%= f.label "Activities: € " %>
+                  <%= f.text_field :activity_price, value:  3, class: "nothing", readonly: true %>
+                </div>
+              <% end %>
+              <%= f.submit "Book", class: "btn btn-primary mt-3" %>
             <% end %>
-            <% if @trip.hotels.present? %>
-              <div class="border-black border-bottom">
-                <%= f.label "Hotel: € " %>
-                <%= f.text_field :hotel_price, value: @trip.room_statuses.last.price, class: "nothing", readonly: true %>
-              </div>
-            <% end %>
-            <% if @trip.activities.present? %>
-              <div class="border-black border-bottom">
-                <%= f.label "Activities: € " %>
-                <%= f.text_field :activity_price, value:  3, class: "nothing", readonly: true %>
-              </div>
-            <% end %>
-            <%= f.submit "Book", class: "btn btn-primary mt-3" %>
-          <% end %>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  <% end %>
 
   <div class="">
     <h1 class="">Location
