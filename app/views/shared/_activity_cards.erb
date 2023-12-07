@@ -34,18 +34,17 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
         <div class="dropdown">
-  <button id="button_style" class="btn btn-secondary dropdown-toggle mb-4 mt-4 ms-4" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-    What day are you going ?
-  </button>
-  <ul class="dropdown-menu">
-    <% if defined?(trip)%>
-    <% trip.date_range.each do |date| %>
-    <a class="dropdown-item dropdown-item-end" href="<%= trip_activities_path(trip, activity_id: activity.id, date: date) %>" data-turbo-method="post"><%= date %></a>
-    <% end %>
-    <% end %>
-
-  </ul>
-</div>
+          <button id="button_style" class="btn btn-secondary dropdown-toggle mb-4 mt-4 ms-4" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            What day are you going ?
+          </button>
+          <ul class="dropdown-menu">
+            <% if defined?(trip)%>
+              <% trip.date_range.each do |date| %>
+                <a class="dropdown-item dropdown-item-end" href="<%= trip_activities_path(trip, activity_id: activity.id, date: date) %>" data-turbo-method="post"><%= date %></a>
+              <% end %>
+            <% end %>
+          </ul>
+        </div>
     </div>
   </div>
 </div>
