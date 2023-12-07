@@ -1,33 +1,51 @@
 <div class="activity-product">
-	<div class="card">
-		<div class="poster"><img src="<%= cl_image_path(activity.photo.key, resize: '200x300') %>" alt="<%= activity.name %>"></div>
-		<div class="details">
-			<h1><%= activity.name %></h1>
-			<h2><%= activity.address %></h2>
-			<div class="rating">
-				<i class="fas fa-star"></i>
-				<i class="fas fa-star"></i>
-				<i class="fas fa-star"></i>
-				<i class="fas fa-star"></i>
-				<i class="far fa-star"></i>
-				<span>4.2/5</span>
-			</div>
-			<p class="desc">
-				<%= activity.description %>
-			</p>
-  <div class="dropup">
-  <button id="button_style" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Dropdown button
+  <a data-bs-toggle="modal" data-bs-target="#dateSelectionModal" style="text-decoration: none; color: inherit;">
+    <div class="card">
+      <div class="poster"><img src="<%= cl_image_path(activity.photo.key, resize: '200x300') %>" alt="<%= activity.name %>"></div>
+      <div class="details">
+        <h1><%= activity.name %></h1>
+        <h2><%= activity.address %></h2>
+        <div class="rating">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="far fa-star"></i>
+          <span>4.2/5</span>
+        </div>
+        <p class="desc">
+          <%= activity.description %>
+        </p>
+        <div class="d-flex">
+          <div class="price">
+            <span><%= activity.price %> € </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </a>
+</div>
+
+<div class="modal fade" id="dateSelectionModal" tabindex="-1" aria-labelledby="dateSelectionModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="dateSelectionModalLabel">Select Date</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+        <div class="dropdown">
+  <button id="button_style" class="btn btn-secondary dropdown-toggle mb-4 mt-4 ms-4" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    What day are you going ?
   </button>
   <ul class="dropdown-menu">
     <% if defined?(trip)%>
     <% trip.date_range.each do |date| %>
-    <li><a class="dropdown-item" href="<%= trip_activities_path(trip, activity_id: activity.id, date: date) %>" data-turbo-method="post"><%= date %></a></li>
+    <a class="dropdown-item dropdown-item-end" href="<%= trip_activities_path(trip, activity_id: activity.id, date: date) %>" data-turbo-method="post"><%= date %></a>
     <% end %>
     <% end %>
 
   </ul>
 </div>
-		</div>
-	</div>
+    </div>
+  </div>
 </div>
