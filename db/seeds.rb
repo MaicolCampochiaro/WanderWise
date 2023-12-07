@@ -105,6 +105,7 @@ sleep(60)
     activity.photo.purge if activity.photo.attached?
     activity.photo.attach(io: file, filename: "ai_generated_image.jpg", content_type: "image/png")
     activity.save!
+    sleep(60)
   end
 
   puts "activities seed finished!"
