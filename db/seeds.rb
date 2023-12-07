@@ -155,11 +155,11 @@ sleep(60)
     puts "Starting seed for rooms in #{hotel.name}..."
 
     # Seed for rooms
-    5.times do
-      ROOMS.each do |room|
-        RoomStatus.create!(room_name: room, price: Faker::Number.number(digits: 3), status: "planned", hotel: hotel)
-      end
+
+    ROOMS.each do |room|
+      RoomStatus.create!(room_name: room, price: Faker::Number.number(digits: 3), status: "planned", hotel: hotel)
     end
+
     sleep(60)
   end
 end
