@@ -10,10 +10,11 @@ Cloudinary.config do |config|
 end
 
 Location.destroy_all
-Activity.destroy_all
-Hotel.destroy_all
-RoomStatus.destroy_all
+Trip.destroy_all
 Flight.destroy_all
+Hotel.destroy_all
+Activity.destroy_all
+RoomStatus.destroy_all
 FlightStatus.destroy_all
 ActivityStatus.destroy_all
 
