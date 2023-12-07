@@ -58,7 +58,7 @@ locs.each do |loc|
   location.save!
   sleep(15)
 end
-
+sleep(30)
 3.times do
   location = Location.all.sample
 
