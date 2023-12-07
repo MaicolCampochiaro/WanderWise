@@ -1,5 +1,5 @@
 class TripsController < ApplicationController
-  before_action :set_trip, only: [:index, :create, :show, :destroy]
+  before_action :set_trip, only: [:index, :show, :destroy]
 
   def homepage
   end
@@ -28,8 +28,7 @@ class TripsController < ApplicationController
     if @trip.save!
       redirect_to locations_path(@trip), notice: 'Trip was successfully created.'
     else
-      # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! think when u failed to create a trip, what should u do?
-      render :new
+      redirect_to request.referrer, alert: 'There was a problem, try again.'
     end
   end
 

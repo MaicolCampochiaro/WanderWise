@@ -44,22 +44,21 @@ locs = JSON.parse(locations_prompt)
 ROOMS = ["Single", "Double", "Suite", "Quadruple", "Junior Suite"]
 
 locs.each do |loc|
-  Location.create!(loc)
+  location = Location.create!(loc)
+  response = client.images.generate(parameters: {
+    prompt: "An image of this location: #{location.name} that shows the city's landmarks.",
+    size: "256x256"
+  })
+
+  url = response["data"][0]["url"]
+  file = URI.open(url)
+
+  location.photo.purge if location.photo.attached?
+  location.photo.attach(io: file, filename: "ai_generated_image.jpg", content_type: "image/png")
+  location.save!
+  sleep(15)
 end
-
-# Attach an image to the location
-response = client.images.generate(parameters: {
-  prompt: "An image of this location: #{location.name} that shows the city's landmarks.",
-  size: "256x256"
-})
-
-url = response["data"][0]["url"]
-file = URI.open(url)
-
-location.photo.purge if location.photo.attached?
-location.photo.attach(io: file, filename: "ai_generated_image.jpg", content_type: "image/png")
-location.save!
-
+sleep(60)
 3.times do
   location = Location.all.sample
 
@@ -106,6 +105,7 @@ location.save!
     activity.photo.purge if activity.photo.attached?
     activity.photo.attach(io: file, filename: "ai_generated_image.jpg", content_type: "image/png")
     activity.save!
+    sleep(60)
   end
 
   puts "activities seed finished!"
@@ -155,11 +155,12 @@ location.save!
     puts "Starting seed for rooms in #{hotel.name}..."
 
     # Seed for rooms
-    5.times do
-      ROOMS.each do |room|
-        RoomStatus.create!(room_name: room, price: Faker::Number.number(digits: 3), status: "planned", hotel: hotel)
-      end
+
+    ROOMS.each do |room|
+      RoomStatus.create!(room_name: room, price: Faker::Number.number(digits: 3), status: "planned", hotel: hotel)
     end
+
+    sleep(60)
   end
 end
 
