@@ -1,12 +1,12 @@
-<%= form_with url: trip_hotels_path(params[:id]),
+<%= form_with url: trip_hotels_path(@trip),
               method: :get,
               html: {
-                class: "mb-4 mx-auto",
+                class: " mx-auto",
                 data: {
                   autocomplete_target: "form"
                 }
               } do |f| %>
-  <div class="search-container r13">
+  <div class="search-container2">
 <div class="row">
   <div class="col mb-2 dropup">
     <%= f.select :room_type,
@@ -17,7 +17,7 @@
 </div>
     <div class="row">
       <div class="col d-flex justify-content-between">
-        <%= f.submit "search", class: "form-control r13 search-btn mx-auto" %>
+        <%= f.submit "search", class: "form-control r13 search-btn mx-auto", id:"button_style"%>
       </div>
     </div>
   </div>

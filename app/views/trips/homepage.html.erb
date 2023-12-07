@@ -1,32 +1,42 @@
-<h1>U're in the homepage</h1>
-
-<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="" class="d-block w-100" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="..." class="d-block w-100" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="..." class="d-block w-100" alt="...">
-    </div>
-  </div>
-</div>
-
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#trip_name">
-  Start your trip
-</button>
-<div class="modal fade" id="trip_name" tabindex="-1" aria-labelledby="title" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content py-0 px-2">
-        <div class="modal-header">
-          <h5 class="modal-title" id="title">trip title</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<div class="carousel-layout d-flex">
+  <div id="carouselExampleSlidesOnly" class="carousel slide" style="width: 45vw;" data-bs-ride="carousel">
+      <div class="carousel-inner text-center">
+        <div class="carousel-item active">
+          <%= image_tag "carousel1.jpg", class: "", alt: "..." %>
         </div>
-        <div class="modal-body py-0">
-          <%= render 'shared/trip_name_popup' %>
+        <div class="carousel-item">
+          <%= image_tag "carousel3.jpg", class: "", alt: "..." %>
+        </div>
+        <div class="carousel-item">
+          <%= image_tag "carousel4.jpg", class: "", alt: "..." %>
+        </div>
+        <div class="carousel-item">
+          <%= image_tag "carousel5.jpg", class: "", alt: "..." %>
         </div>
       </div>
+    </div>
+    <div class="d-flex d-flex flex-column justify-content-center align-items-center">
+<div class="carousel-captions text-center">
+  <h1 class="homepage-title display-1 font-weight-bold"><strong>Welcome to Wanderwise</strong></h1>
+  <br>
+  <p class="">Plan your trip with us</p>
+  <button id="button_style" type="button" class="btn btn-primary mx-auto mt-3" data-bs-toggle="modal" data-bs-target="#trip_name">
+    Start your trip
+  </button>
+</div>
+</div>
+</div>
+
+<div class="modal fade" id="trip_name" tabindex="-1" aria-labelledby="title" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content py-0 px-2">
+      <div class="modal-header">
+        <h5 class="modal-title" id="title">Trip Title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body py-0">
+        <%= render 'shared/trip_name_popup' %>
+      </div>
+    </div>
   </div>
 </div>

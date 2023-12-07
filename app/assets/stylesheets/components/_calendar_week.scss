@@ -1,5 +1,5 @@
 .days-of-week {
-  margin-top: 24px;
+  margin-top: 12px;
   display: flex;
   border: 1px solid #000;
 }
@@ -9,4 +9,15 @@
   padding: 10px 10px; /* Adjust the padding as needed */
   text-align: center;
   margin-right: 0;
+}
+
+.day-box-button {
+  padding: 10px 10px; /* Adjust the padding as needed */
+  text-align: center;
+  margin-right: 0;
+}
+
+.days-of-week-button {
+  margin-top: 12px;
+  display: flex;
 }

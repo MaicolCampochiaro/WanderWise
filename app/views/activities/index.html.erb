@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="activity-container col-md-6">
+  <div class="activity-container col-md-6" style="height: 82vh;">
     <% @activities.each do |activity| %>
       <%= render partial: "shared/activity_cards", locals: { activity: activity, trip: @trip } %>
     <% end %>
@@ -9,6 +9,6 @@
       id='map'
       data-map-markers-value="<%= @markers.to_json %>"
       data-map-api-key-value="<%= ENV["MAPBOX_API_KEY"] %>"
-      style='height: 100%;'></div>
+      style='height: 82vh;'></div>
   </div>
 </div>
