@@ -1,4 +1,4 @@
-
+<div class="room-list-container">
     <% if @room_statuses.present? %>
   <% @room_statuses.each do |room| %>
     <%= render 'shared/room_card', hotel: @hotel, room_status: room %>
@@ -6,3 +6,4 @@
 <% else %>
   <p>No rooms available for this hotel.</p>
 <% end %>
+</div>
