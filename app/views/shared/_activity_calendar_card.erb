@@ -1,0 +1,8 @@
+<div id="card" class="card-category position-relative" style="background-image: url('<%= cl_image_path activity.photo.key, height: 300, crop: :fill %>')">
+  <h3>
+    <%= activity.name %>
+  </h3>
+  <%= link_to delete_trip_activity_path(activity_id: activity.id), data: { "turbo-method": :delete } do %>
+    <i id="icon" class="fa-regular fa-circle-xmark position-absolute top-0 end-0" style="color: #000000;"></i>
+  <% end %>
+</div>

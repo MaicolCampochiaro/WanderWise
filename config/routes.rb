@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get '/trips/:id/hotels/new' => 'hotels#new', as: 'new_trip_hotel'
   get '/trips/:id/hotels/:hotel_id' => 'hotels#show', as: 'hotel_show'
   get '/trips/:id/activities' => 'activities#index', as: 'trip_activities'
+  delete '/trips/:id/activities/:activity_id' => 'activities#delete', as: 'delete_trip_activity'
   get '/trips/:id/activities/new' => 'activities#new', as: 'new_trip_activity'
   post '/trips/:id/activities' => 'activities#create'
   get '/trips' => 'trips#index', as: 'my_trips'

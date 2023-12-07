@@ -1,3 +1,11 @@
 .overview h1 {
   margin: 24px 0;
 }
+
+.nothing {
+  border: 0;
+  outline: none;
+  cursor: default;
+  background-color: inherit;
+  width: fit-content;
+}

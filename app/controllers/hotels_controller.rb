@@ -19,9 +19,9 @@ class HotelsController < ApplicationController
   end
 
   def new
-    room_status = RoomStatus.find(params[:room_id])
-    if room_status.present?
-      if RoomStatus.update(trip: @trip, status: "planned")
+    room = RoomStatus.find(params[:room_id])
+    if room.present?
+      if RoomStatus.create!(room_name: room.room_name, hotel: room.hotel, price: room.price, trip: @trip, status: "planned")
         redirect_to overview_path(id: @trip, query: ""), notice: 'Hotel was successfully added.'
       else
         redirect_to request.referer || "/", alert: 'There was a problem, try again.'

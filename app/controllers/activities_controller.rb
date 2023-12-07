@@ -1,5 +1,5 @@
 class ActivitiesController < ApplicationController
-  before_action :set_trip, only: [:index, :create, :show]
+  before_action :set_trip, only: [:index, :create, :show, :delete]
 
   def index
     @activities = Activity.where(location: @trip.location)
@@ -19,8 +19,17 @@ class ActivitiesController < ApplicationController
   def create
     activity = Activity.find(params[:activity_id])
     date = params[:date]
-    if ActivityStatus.create!(activity: activity, trip: @trip, status: "planned", date: date, participant: 2)
+    if ActivityStatus.create!(activity: activity, trip: @trip, status: "planned", date: date)
       redirect_to overview_path(id: @trip, query: ""), notice: 'Activity was successfully added.'
+    else
+      redirect_to request.referrer, alert: 'There was a problem, try again.'
+    end
+  end
+
+  def delete
+    activity = Activity.find(params[:activity_id])
+    if ActivityStatus.find_by(activity: activity, trip: @trip).destroy
+      redirect_to overview_path(id: @trip, query: ""), notice: 'Activity was successfully removed.'
     else
       redirect_to request.referrer, alert: 'There was a problem, try again.'
     end

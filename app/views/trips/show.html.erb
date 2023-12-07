@@ -1,32 +1,67 @@
 <div class="overview">
   <div class="d-flex justify-content-end mt-3">
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#payModal">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#payModal" id="button_style">
       Book my trip
     </button>
   </div>
+  <div class="modal fade" id="payModal" tabindex="-1" aria-labelledby="payModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="payModalLabel">Payment slip</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <%= form_with url: trip_activities_path(@trip), method: :post do |f| %>
+            <% if @trip.flights.present? %>
+              <div class="border-black border-bottom">
+                <%= f.label "Flight: € " %>
+                <%= f.text_field :flight_price, value: @trip.flights.last.price, class: "nothing", readonly: true %>
+              </div>
+            <% end %>
+            <% if @trip.hotels.present? %>
+              <div class="border-black border-bottom">
+                <%= f.label "Hotel: € " %>
+                <%= f.text_field :hotel_price, value: @trip.room_statuses.last.price, class: "nothing", readonly: true %>
+              </div>
+            <% end %>
+            <% if @trip.activities.present? %>
+              <div class="border-black border-bottom">
+                <%= f.label "Activities: € " %>
+                <%= f.text_field :activity_price, value:  3, class: "nothing", readonly: true %>
+              </div>
+            <% end %>
+            <%= f.submit "Book", class: "btn btn-primary mt-3" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="">
-    <h1 class=" d-flex mb-3">Location
+    <h1 class="">Location
       <% if @trip.location.present? %>
         <span class="ms-3">
-        <%= link_to "Add Location", locations_path(@trip), class: "btn btn-primary p-2", id: "button_style" %>
+        <%= link_to "Change Location", locations_path(@trip), class: "btn btn-primary p-2", id: "button_style" %>
         </span>
       <% end %>
     </h1>
     <div class="border-dark border-3 border-top border-bottom py-3 d-flex justify-content-center align-items-center">
-    <div class="card" style="width: 300; height: 170px;">
       <% if @trip.location.present? %>
-        <%= render 'shared/location_card', location: @trip.location %>
+        <div class="card" style="width: 300; height: 170px;">
+          <%= render 'shared/location_card', location: @trip.location %>
+        </div>
       <% else %>
         <%= link_to "Add Location", locations_path(@trip), class: "btn btn-primary p-2",  id: "button_style" %>
       <% end %>
-      </div>
-      </div>
+    </div>
   </div>
+
   <div class="">
     <h1 class="">Flight
     <% if @trip.flights.present?%>
       <span class="ms-3">
-    <%= link_to "Add flight", trip_flights_path(@trip), class: "btn btn-primary p28",  id: "button_style" %>
+    <%= link_to "Change flight", trip_flights_path(@trip), class: "btn btn-primary p28",  id: "button_style" %>
     </span>
     <% end %>
     </h1>
@@ -38,24 +73,26 @@
       <% end %>
     </div>
   </div>
+
   <div class="">
     <h1 class="">Hotel
     <% if @trip.hotels.present?%>
     <span class="ms-3">
-    <%= link_to "Add hotel", trip_hotels_path(@trip), class: "btn btn-primary p28",  id: "button_style" %>
+    <%= link_to "Change hotel", trip_hotels_path(@trip), class: "btn btn-primary p28",  id: "button_style" %>
     </span>
     <% end %>
     </h1>
     <div class="border-dark border-3 border-top border-bottom py-3 d-flex justify-content-center align-items-center">
       <% if @trip.hotels.present?%>
       <div class="hotel-product">
-        <%= render 'shared/hotel_card', hotel: @trip.hotels.last, select_btn: false %>
+        <%= render 'shared/hotel_card', hotel: @trip.room_statuses.last.hotel, select_btn: false %>
       </div>
       <% else %>
         <%= link_to "Add hotel", trip_hotels_path(@trip), class: "btn btn-primary p28",  id: "button_style" %>
       <% end %>
     </div>
   </div>
+
   <div class="">
     <div class="d-flex">
     <h1 class="">Activity<% if @date_range.present? %>
@@ -65,47 +102,25 @@
       <% end %></h1>
     </div>
     <div class="border-dark border-3 border-top border-bottom py-3">
-    <% if @date_range.present? %>
-    <div class="days-of-week row">
+      <% if @date_range.present? %>
+        <div class="days-of-week row">
           <% @date_range.each do |date| %>
             <div class="day-box col-3">
               <h3><%= date.to_fs(:short) %></h3>
               <% @trip.activity_statuses.where(date: date).each do |activity_status| %>
-                <%= render partial: "shared/location_card", locals: { location: activity_status.activity, trip: @trip } %>
+                <%= render partial: "shared/activity_calendar_card", locals: { activity: activity_status.activity, trip: @trip } %>
                 <br>
               <% end %>
             </div>
           <% end %>
+        </div>
+      <% else %>
+        <div class="days-of-week-button d-flex justify-content-center">
+          <div class="day-box-button">
+            <%= link_to "Add Activity", overview_path(@trip, query: ""), class: "btn btn-primary p-2",  id: "button_style" %>
           </div>
-          <div class="days-of-week-button d-flex justify-content-center">
-        <% else %>
-        <div class="day-box-button">
-          <%= link_to "Add Activity", trip_activities_path(@trip), class: "btn btn-primary p-2",  id: "button_style" %>
         </div>
-        <% end %>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="payModal" tabindex="-1" aria-labelledby="payModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="payModalLabel">Add Note</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <%= form_with url: trip_activities_path(@trip), method: :post do |f| %>
-          <% if @trip.flights.present? %>
-            <%= f.text_field :flight_price, value: @trip.flights.last.price, class: "form-control", readonly: true %>
-          <% else %>
-            <%= f.text_field :flight_price, class: "form-control", placeholder: "Flight Price" %>
-          <% end %>
-          <%= f.submit "Book", class: "btn btn-primary mt-3" %>
-        <% end %>
-      </div>
+      <% end %>
     </div>
   </div>
 </div>
