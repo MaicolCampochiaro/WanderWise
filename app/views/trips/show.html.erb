@@ -65,8 +65,8 @@
       <% end %></h1>
     </div>
     <div class="border-dark border-3 border-top border-bottom py-3">
-      <div class="days-of-week row">
-        <% if @date_range.present? %>
+    <% if @date_range.present? %>
+    <div class="days-of-week row">
           <% @date_range.each do |date| %>
             <div class="day-box col-3">
               <h3><%= date.to_fs(:short) %></h3>
@@ -76,9 +76,14 @@
               <% end %>
             </div>
           <% end %>
+          </div>
+          <div class="days-of-week-button d-flex justify-content-center">
         <% else %>
-          <%= link_to "Add Activity", trip_activities_path(@trip), class: "btn btn-primary p-2 btn-sm",  id: "button_style" %>
+        <div class="day-box-button">
+          <%= link_to "Add Activity", trip_activities_path(@trip), class: "btn btn-primary p-2",  id: "button_style" %>
+        </div>
         <% end %>
+        </div>
       </div>
     </div>
   </div>
