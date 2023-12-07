@@ -35,8 +35,10 @@
                 </div>
               <% end %>
               <div class="border-black border-bottom">
-                  <%= f.label "Total: € #{@trip.flights.last.price + @trip.room_statuses.last.price + @trip.activities.last.price}" %>
-                </div>
+                <% if @trip.flights.present? && @trip.hotels.present? && @trip.activities.present? %>
+                  <%= f.text_field :total_price, value: @trip.flights.last.price + @trip.room_statuses.last.price + @trip.activities.last.price, class: "nothing", readonly: true %> €
+                <% end %>
+              </div>
               <%= f.submit "Book", class: "btn btn-primary mt-3" %>
             <% end %>
           </div>
