@@ -44,21 +44,19 @@ locs = JSON.parse(locations_prompt)
 ROOMS = ["Single", "Double", "Suite", "Quadruple", "Junior Suite"]
 
 locs.each do |loc|
-  Location.create!(loc)
+  location = Location.create!(loc)
+  response = client.images.generate(parameters: {
+    prompt: "An image of this location: #{location.name} that shows the city's landmarks.",
+    size: "256x256"
+  })
+
+  url = response["data"][0]["url"]
+  file = URI.open(url)
+
+  location.photo.purge if location.photo.attached?
+  location.photo.attach(io: file, filename: "ai_generated_image.jpg", content_type: "image/png")
+  location.save!
 end
-
-# Attach an image to the location
-response = client.images.generate(parameters: {
-  prompt: "An image of this location: #{location.name} that shows the city's landmarks.",
-  size: "256x256"
-})
-
-url = response["data"][0]["url"]
-file = URI.open(url)
-
-location.photo.purge if location.photo.attached?
-location.photo.attach(io: file, filename: "ai_generated_image.jpg", content_type: "image/png")
-location.save!
 
 3.times do
   location = Location.all.sample
