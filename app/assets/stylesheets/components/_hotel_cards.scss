@@ -51,3 +51,12 @@
   border-radius: 50px;
   width: 120px;
 }
+.room-list-container {
+  padding: 20px;
+  height: 300px;
+  border-radius: 5px;
+  margin: auto; /* This will center the container */
+  width: 50%;   /* Adjust the width as needed */
+  display: flex;
+  flex-direction: column;
+}
