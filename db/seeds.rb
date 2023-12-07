@@ -9,6 +9,14 @@ Cloudinary.config do |config|
   config.api_secret = ENV["CLOUDINARY_API_SECRET"]
 end
 
+Location.destroy_all
+Activity.destroy_all
+Hotel.destroy_all
+RoomStatus.destroy_all
+Flight.destroy_all
+FlightStatus.destroy_all
+ActivityStatus.destroy_all
+
 puts 'Starting seed for location...'
 
 response = client.chat(parameters: {
@@ -32,21 +40,27 @@ locations_prompt = response["choices"][0]["message"]["content"]
 # Use the generated prompt for further processing
 locs = JSON.parse(locations_prompt)
 
-2.times do
-  location = Location.create!(locs.sample)
+ROOMS = ["Single", "Double", "Suite", "Quadruple", "Junior Suite"]
 
-  # Attach an image to the location
-  response = client.images.generate(parameters: {
-    prompt: "An image of this location: #{location.name} that shows the city's landmarks.",
-    size: "256x256"
-  })
+locs.each do |loc|
+  Location.create!(loc)
+end
 
-  url = response["data"][0]["url"]
-  file = URI.open(url)
+# Attach an image to the location
+response = client.images.generate(parameters: {
+  prompt: "An image of this location: #{location.name} that shows the city's landmarks.",
+  size: "256x256"
+})
 
-  location.photo.purge if location.photo.attached?
-  location.photo.attach(io: file, filename: "ai_generated_image.jpg", content_type: "image/png")
-  location.save!
+url = response["data"][0]["url"]
+file = URI.open(url)
+
+location.photo.purge if location.photo.attached?
+location.photo.attach(io: file, filename: "ai_generated_image.jpg", content_type: "image/png")
+location.save!
+
+3.times do
+  location = Location.all.sample
 
   puts "Starting seed for activities in #{location.name}..."
 
@@ -55,7 +69,7 @@ locs = JSON.parse(locations_prompt)
     model: "gpt-3.5-turbo",
     messages: [{
       role: "user",
-      content: "give me 2 activities to do in '#{location.name}'.
+      content: "give me 5 activities to do in '#{location.name}'.
       Your response should be an array of objects.
       Each object should have the following structure:
       {\"name\": \"string\",
@@ -102,7 +116,7 @@ locs = JSON.parse(locations_prompt)
     model: "gpt-3.5-turbo",
     messages: [{
       role: "user",
-      content: "give me 2 real hotel  names to stay at in '#{location.name}' with unique names.
+      content: "give me 5 real hotel  names to stay at in '#{location.name}' with unique names.
       Your response should be an array of objects.
       Each object should have the following structure:
       {\"name\": \"string\",
@@ -140,49 +154,11 @@ locs = JSON.parse(locations_prompt)
     puts "Starting seed for rooms in #{hotel.name}..."
 
     # Seed for rooms
-    3.times do
-      RoomStatus.create!(room_name: Faker::Name.name, price: Faker::Number.number(digits: 3), status: "planned", hotel: hotel)
+    5.times do
+      ROOMS.each do |room|
+        RoomStatus.create!(room_name: room, price: Faker::Number.number(digits: 3), status: "planned", hotel: hotel)
+      end
     end
-
-  #   response = client.chat(parameters: {
-  #     model: "gpt-3.5-turbo",
-  #     messages: [{
-  #       role: "user",
-  #       content: "give me 2 real room names to stay at in '#{hotel.name}' with unique names like 'suite, single or double'.
-  #       Your response should be an array of objects.
-  #       Each object should have the following structure:
-  #       {\"name\": \"string\",
-  #         \"description\": \"string\",
-  #         \"price\": \"float\"}.
-  #         Your answer should not include text like 'Here are rooms to stay in.'"
-  #     }]
-  #   })
-
-  #   new_content = response["choices"][0]["message"]["content"]
-  #   rooms_data = JSON.parse(new_content)
-
-  #   rooms_data.each do |room_data|
-
-  #     room = RoomStatus.create!(
-  #       room_name: room_data["name"],
-  #       description: room_data["description"],
-  #       price: room_data["price"],
-  #       hotel: hotel
-  #     )
-
-  #     # Create the image for the room
-  #     response = client.images.generate(parameters: {
-  #       prompt: "An room image of #{room.name}",
-  #       size: "256x256"
-  #     })
-
-  #     url = response["data"][0]["url"]
-  #     file = URI.open(url)
-
-  #     room.photo.purge if room.photo.attached?
-  #     room.photo.attach(io: file, filename: "ai_generated_image.jpg", content_type: "image/png")
-  #     room.save!
-  #   end
   end
 end
 
@@ -190,14 +166,12 @@ puts 'hotels seed finished!'
 
 puts 'Starting seed for flights'
 
-# 5.times do
-#   flight = Flight.new(start_location: Faker::Address.city,
-#                       end_location: Faker::Address.city,
-#                       start_date: Faker::Time.between(from: DateTime.now - 1, to: DateTime.now + 10),
-#                       end_date: Faker::Date.between(from: Date.now - 1, to: Date.now + 10),
-#                       price: Faker::Number.number(digits: 3))
-#   flight.save!
-# end
+5.times do
+  flight = Flight.create!(price: Faker::Number.number(digits: 3),
+                  start_time: Faker::Time.between(from: DateTime.now - 1, to: DateTime.now),
+                  end_time: Faker::Time.between(from: DateTime.now - 1, to: DateTime.now)
+                )
+end
 
   puts 'flights seed finished'
 
