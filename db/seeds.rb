@@ -56,7 +56,7 @@ locs.each do |loc|
   location.photo.purge if location.photo.attached?
   location.photo.attach(io: file, filename: "ai_generated_image.jpg", content_type: "image/png")
   location.save!
-  sleep(65)
+  sleep(15)
 end
 
 3.times do
