@@ -1,5 +1,5 @@
-<div class="row" style="">
-  <div class="col-md-12 ms-2" style="background-color: white; border: 0,8px solid #000; padding: 20px; border-radius: 2px;">
+<div class="row" style="height: 300px;">
+  <div class="col-md-12 ms-2" style="background-color: white; border: 1px solid #000; padding: 20px; border-radius: 2px; height: 300px;">
     <h2><%= @hotel.name %></h2>
     <div class="d-flex">
       <img src="<%= cl_image_path(@hotel.photo.key, resize: '200x300', width: 100) %>" alt="<%= @hotel.name %>" class="wider-image img-fluid">

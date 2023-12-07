@@ -5,6 +5,6 @@
 </div>
 <% if select_btn %>
   <%= link_to hotel_show_path(id: @trip, hotel_id: hotel.id), action: 'go' do %>
-    <button class="select_hotel_button btn btn-primary">See availability</button>
+    <button id="button_style" class="select_hotel_button btn btn-primary btn-sm me-3">See availability</button>
   <% end %>
 <% end %>
