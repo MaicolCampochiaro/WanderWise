@@ -1,5 +1,5 @@
 <div class="activity-product">
-  <a data-bs-toggle="modal" data-bs-target="#<%= activity.id %>" style="text-decoration: none; color: inherit;">
+  <a data-bs-toggle="modal" data-bs-target="#A<%= activity.id %>" style="text-decoration: none; color: inherit;">
     <div class="card">
       <div class="poster"><img src="<%= cl_image_path(activity.photo.key, resize: '200x300') %>" alt="<%= activity.name %>"></div>
       <div class="details">
@@ -26,7 +26,7 @@
   </a>
 </div>
 
-<div class="modal fade" id="<%= activity.id %>" tabindex="-1" aria-labelledby="dateSelectionModalLabel" aria-hidden="true">
+<div class="modal fade" id="A<%= activity.id %>" tabindex="-1" aria-labelledby="dateSelectionModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
