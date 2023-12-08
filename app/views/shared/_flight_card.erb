@@ -17,7 +17,7 @@
     <p class="price-label">Return flight<br/>
       <span class="price-label-grey">Per person</span>
     </p>
-    <span class="flight-price-total"><%= flight.price %> $</span>
+    <span class="flight-price-total"><%= flight.price %> €</span>
     <% if select_btn %>
       <%= link_to new_trip_flight_path(@trip, flight_id: flight.id, ppl: 2 ) do  %>
         <button id="button_style" class="select-flight-button">Select</button>
