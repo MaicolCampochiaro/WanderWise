@@ -1,8 +1,7 @@
-<div class="card-product mb-3" style="max-width: 500px;">
-<img src="<%= cl_image_path(hotel.photo.key, resize: '200x300') %>" alt="<%= hotel.name %>">
+<div class="card-product mb-3">
   <div class="card-product-infos">
   <h2><%= room_status.room_name %></h2>
-  <p><%= room_status.price %> € </p>
+  <h6 class="pt-2"><%= room_status.price %> € </h6>
 </div>
 <%= link_to new_trip_hotel_path(@trip, room_id: room_status.id ), class: "ms-auto" do  %>
   <button id="button_style" class="hotel_select_button btn btn-primary">book now!</button>

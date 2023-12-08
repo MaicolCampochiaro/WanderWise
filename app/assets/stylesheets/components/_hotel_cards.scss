@@ -53,10 +53,16 @@
 }
 .room-list-container {
   padding: 20px;
-  height: 300px;
+  max-height: 70vh;
   border-radius: 5px;
-  margin: auto; /* This will center the container */
-  width: 50%;   /* Adjust the width as needed */
-  display: flex;
+  margin: auto;
+  width: 50%;
   flex-direction: column;
+  overflow: auto;
+  margin-top: 12px;
+}
+
+.hotel-list {
+  max-height: 82vh; /* Adjust the value as needed */
+  overflow-y: auto; /* This will add a vertical scrollbar when necessary */
 }
